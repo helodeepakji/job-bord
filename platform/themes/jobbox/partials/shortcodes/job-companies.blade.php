@@ -15,22 +15,13 @@
                     <div class="font-sm color-text-paragraph-2 mt-10 wow animate__animated animate__fadeInUp"
                         data-wow-delay=".1s">{!! BaseHelper::clean($shortcode->subtitle) !!}</div>
                     <div class="box-list-character">
-                        {{-- <ul>
-                            @foreach (range('A', 'Z') as $word)
+                        <ul>
+                            @foreach(range('A', 'Z') as $word)
                                 <li>
                                     <a class="filter-by-word @if (BaseHelper::stringify(request()->query('keyword')) == $word) active @endif" data-keyword="{{ $word }}" href="#">{{ $word }}</a>
                                 </li>
                             @endforeach
-                        </ul> --}}
-                        <div class="box-search">
-                            {!! Form::open(['url' => route('public.ajax.companies'), 'method' => 'GET', 'id' => 'company-filter-form', 'class' => 'd-flex']) !!}
-                                <input type="text" name="keyword" value="{{ request()->query('keyword') }}"
-                                       placeholder="Search company by name..." class="search-input" />
-                                <input type="text" name="location" value="{{ request()->query('location') }}"
-                                       placeholder="Search by location..." class="search-input" />
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            {!! Form::close() !!}
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>

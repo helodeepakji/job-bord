@@ -15,14 +15,14 @@
                 <input class="form-input input-keysearch mr-10" name="keyword" type="text" value="{{ BaseHelper::stringify(request()->query('keyword')) }}" placeholder="{{ __('Your keyword...') }}">
             @endif
 
-            @if (is_plugin_active('job-board'))
+            {{-- @if (is_plugin_active('job-board'))
                 <div class="box-industry">
                     <select
                         class="form-input mr-10 select-active input-industry job-category" name="job_categories[]">
                         <option value="">{{ $categories ? implode(', ', $categories) : __('Industry') }}</option>
                     </select>
                 </div>
-            @endif
+            @endif --}}
 
             @if (! theme_option('hide_job_location_filter') && is_plugin_active('location'))
                 <select class="form-input mr-10 select-location" name="location" data-location-type="{{ theme_option('job_location_filter_by', 'state') }}">

@@ -43,8 +43,7 @@ class PublicController extends BaseController
 {
     public function __construct(
         protected JobInterface $jobRepository,
-    ) {
-    }
+    ) {}
 
     public function getJob(string $slug)
     {
@@ -273,6 +272,16 @@ class PublicController extends BaseController
             $companies = $companies->where('name', 'LIKE', $requestQuery['keyword'] . '%');
         }
 
+        // $location = $requestQuery['location'] ?? null;
+        // if ($location) {
+        //     $companies = $companies->where(function ($query) use ($location) {
+        //         $query->where('address', 'LIKE', '%' . $location . '%')
+        //             ->orWhere('city_id', 'LIKE', '%' . $location . '%')  // If location is related to city
+        //             ->orWhere('state_id', 'LIKE', '%' . $location . '%')  // If location is related to state
+        //             ->orWhere('country_id', 'LIKE', '%' . $location . '%');  // If location is related to country
+        //     });
+        // }
+
         match ($requestQuery['sort_by'] ?? 'oldest') {
             'newest' => $companies = $companies->latest(),
             default => $companies = $companies->oldest(),
@@ -423,7 +432,7 @@ class PublicController extends BaseController
             $jobApplication->fill($request->input());
             $jobApplication->save();
 
-            $job::withoutEvents(fn () => $job::withoutTimestamps(fn () => $job->increment('number_of_applied')));
+            $job::withoutEvents(fn() => $job::withoutTimestamps(fn() => $job->increment('number_of_applied')));
 
             if (! $job->apply_url) {
                 $jobApplication->setRelation('job', $job);

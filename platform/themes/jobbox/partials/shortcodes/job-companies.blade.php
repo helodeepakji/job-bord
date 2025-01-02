@@ -12,26 +12,25 @@
             <div class="banner-hero banner-company">
                 <div class="block-banner text-center">
                     <h3 class="wow animate__animated animate__fadeInUp">{!! BaseHelper::clean($shortcode->title) !!}</h3>
-                    <div class="font-sm color-text-paragraph-2 mt-10 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">{!! BaseHelper::clean($shortcode->subtitle) !!}</div>
+                    <div class="font-sm color-text-paragraph-2 mt-10 wow animate__animated animate__fadeInUp"
+                        data-wow-delay=".1s">{!! BaseHelper::clean($shortcode->subtitle) !!}</div>
                     <div class="box-list-character">
                         {{-- <ul>
-                            @foreach(range('A', 'Z') as $word)
+                            @foreach (range('A', 'Z') as $word)
                                 <li>
-                                    <a class="filter-by-word @if(BaseHelper::stringify(request()->query('keyword')) == $word) active @endif" data-keyword="{{ $word }}" href="#">{{ $word }}</a>
+                                    <a class="filter-by-word @if (BaseHelper::stringify(request()->query('keyword')) == $word) active @endif" data-keyword="{{ $word }}" href="#">{{ $word }}</a>
                                 </li>
                             @endforeach
                         </ul> --}}
-                        <div class="box-list-character">
-                            <div class="box-search">
-                                <form method="GET" action="" class="d-flex">
-                                    <input type="text" name="keyword" value="{{ request()->query('keyword') }}"
-                                        placeholder="Search company by name..." class="search-input" />
-                                    <input type="text" name="location" value="{{ request()->query('location') }}"
-                                        placeholder="Search by location..." class="search-input" />
-                                    <button type="submit" class="btn btn-primary">Search</button>
-                                </form>
-                            </div>
-                        </div>                        
+                        <div class="box-search">
+                            <form method="GET" action="" class="d-flex">
+                                <input type="text" name="keyword" value="{{ request()->query('keyword') }}"
+                                    placeholder="Search company by name..." class="search-input" />
+                                <input type="text" name="location" value="{{ request()->query('location') }}"
+                                    placeholder="Search by location..." class="search-input" />
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,13 +41,16 @@
             <div id="loading" class="loading" style="display:none">
                 <div class="preloader d-flex align-items-center justify-content-center">
                     <div class="preloader-inner position-relative">
-                        <div class="text-center"><img src="{{ Theme::asset()->url('imgs/template/loading.gif') }}" alt="loading.gif"></div>
+                        <div class="text-center"><img src="{{ Theme::asset()->url('imgs/template/loading.gif') }}"
+                                alt="loading.gif"></div>
                     </div>
                 </div>
             </div>
             <div class="row flex-row-reverse row-filter justify-content-center">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12 company-listing">
-                    @include(Theme::getThemeNamespace('views.job-board.partials.companies'), ['companies' => $companies])
+                    @include(Theme::getThemeNamespace('views.job-board.partials.companies'), [
+                        'companies' => $companies,
+                    ])
                 </div>
             </div>
             {!! Form::open(['url' => route('public.ajax.companies'), 'method' => 'GET', 'id' => 'company-filter-form']) !!}
@@ -65,4 +67,3 @@
         {!! apply_filters('ads_render', null, 'company_list_after', ['class' => 'my-2 text-center']) !!}
     @endif
 </div>
-

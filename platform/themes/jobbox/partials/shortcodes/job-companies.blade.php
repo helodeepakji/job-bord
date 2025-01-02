@@ -14,13 +14,24 @@
                     <h3 class="wow animate__animated animate__fadeInUp">{!! BaseHelper::clean($shortcode->title) !!}</h3>
                     <div class="font-sm color-text-paragraph-2 mt-10 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">{!! BaseHelper::clean($shortcode->subtitle) !!}</div>
                     <div class="box-list-character">
-                        <ul>
+                        {{-- <ul>
                             @foreach(range('A', 'Z') as $word)
                                 <li>
                                     <a class="filter-by-word @if(BaseHelper::stringify(request()->query('keyword')) == $word) active @endif" data-keyword="{{ $word }}" href="#">{{ $word }}</a>
                                 </li>
                             @endforeach
-                        </ul>
+                        </ul> --}}
+                        <div class="box-list-character">
+                            <div class="box-search">
+                                <form method="GET" action="" class="d-flex">
+                                    <input type="text" name="keyword" value="{{ request()->query('keyword') }}"
+                                        placeholder="Search company by name..." class="search-input" />
+                                    <input type="text" name="location" value="{{ request()->query('location') }}"
+                                        placeholder="Search by location..." class="search-input" />
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </form>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>

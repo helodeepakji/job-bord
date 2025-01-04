@@ -69,6 +69,7 @@ class Account extends BaseModel implements AuthenticatableContract, Authorizable
         'city_id',
         'cover_letter',
         'unique_id',
+        'higher_education',
     ];
 
     protected $hidden = [

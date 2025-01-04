@@ -291,6 +291,7 @@ class JobBoardHelper
         }
 
         $params = [
+            'location' => BaseHelper::stringify(Arr::get($inputs, 'location')),
             'keyword' => BaseHelper::stringify(Arr::get($inputs, 'keyword')),
             'sort_by' => (int) Arr::get($inputs, 'sort_by', 'newest') ?: 'newest',
             'order_by' => (int) Arr::get($inputs, 'order_by', 'newest') ?: 'newest',
@@ -312,12 +313,15 @@ class JobBoardHelper
 
     public function filterCandidates(array $params): LengthAwarePaginator
     {
+        // deepak candidates list
         $data = Validator::validate($params, [
             'keyword' => ['nullable', 'string', 'max:200'],
             'sort_by' => ['nullable', Rule::in(array_keys($this->getSortByParams()))],
             'order_by' => ['nullable', Rule::in(array_keys($this->getSortByParams()))],
             'page' => ['nullable', 'numeric', 'min:1'],
             'per_page' => ['nullable', 'numeric', 'min:1'],
+            'experience' => ['nullable', 'string', Rule::in(['1', '2', '3', '5'])],
+            'education' => ['nullable', 'string'],
         ]);
 
         $with = [
@@ -368,6 +372,24 @@ class JobBoardHelper
                         ->addSearch('last_name', $keyword, false);
                 });
             }
+        }
+
+        if (isset($data['experience']) && $data['experience']) {
+            $experience = $data['experience'];
+
+            $candidates = $candidates->whereHas('experiences', function ($query) use ($experience) {
+                $query->where('experience_years', '>=', $experience); // Greater than or equal to selected value
+            });
+        }
+
+
+        // dd($candidates->get());
+
+        // Filter by education level if provided
+        if (isset($data['education']) && $data['education']) {
+            $candidates = $candidates->whereHas('educations', function ($query) use ($data) {
+                $query->where('level', $data['education']);
+            });
         }
 
         if (self::isEnabledReview()) {

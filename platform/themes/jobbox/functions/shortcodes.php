@@ -599,6 +599,13 @@ app()->booted(function (): void {
                 $companies = $companies->where('name', 'LIKE', $requestQuery['keyword'] . '%');
             }
 
+            if (!empty($requestQuery['location'])) {
+                $companies = $companies->where('address', 'LIKE', '%' . $requestQuery['location'] . '%');
+            }
+
+            // dd($companies->get());
+            // deepak company list
+
             $companies = $companies->with($with)
                 ->wherePublished()
                 ->withAvg('reviews', 'star')

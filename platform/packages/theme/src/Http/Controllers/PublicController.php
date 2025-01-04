@@ -56,6 +56,7 @@ class PublicController extends BaseController
             return redirect()->to(BaseHelper::getHomepageUrl());
         }
 
+
         $result = apply_filters(BASE_FILTER_PUBLIC_SINGLE_DATA, $slug);
 
         $extension = SlugHelper::getPublicSingleEndingURL();
@@ -78,6 +79,8 @@ class PublicController extends BaseController
 
         if (! empty($result) && is_array($result)) {
             if (isset($result['view'])) {
+
+
                 Theme::addBodyAttributes(['id' => Str::slug(Str::snake(Str::afterLast($slug->reference_type, '\\'))) . '-' . $slug->reference_id]);
 
                 return Theme::scope($result['view'], $result['data'], Arr::get($result, 'default_view'))->render();

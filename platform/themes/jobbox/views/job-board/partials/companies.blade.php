@@ -1,3 +1,4 @@
+{{-- deepak company list --}}
 <div class="content-page ">
     <div class="box-filters-job">
         <div class="row ">
@@ -65,7 +66,6 @@
     </div>
     <div class="row display-list">
         @php($template = BaseHelper::stringify(request()->query('layout')) === 'grid' ? 'grid' : 'list')
-
         @forelse($companies as $company)
             @include(Theme::getThemeNamespace('views.job-board.partials.company-' . $template), ['company' => $company])
         @empty

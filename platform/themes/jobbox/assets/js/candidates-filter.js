@@ -1,5 +1,7 @@
+// deepak candidates list
 (function ($) {
     const loading = $('.loading-ring')
+    
 
     const $candidatesList = $('.candidates-list');
 

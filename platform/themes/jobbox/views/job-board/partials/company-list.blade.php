@@ -1,3 +1,4 @@
+{{-- deepak company list --}}
 <div class="col-md-6 col-xl-4 col-12 company-list-item">
     <div class="card-grid-2 hover-up">
         @if($company->is_featured)

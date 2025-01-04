@@ -1,3 +1,4 @@
+{{-- deepak company list --}}
 @php
     Theme::asset()->container('footer')->usePath()->add('no-ui-slider', 'js/noUISlider.js');
     Theme::asset()->container('footer')->usePath()->add('company-filter', 'js/company.js');

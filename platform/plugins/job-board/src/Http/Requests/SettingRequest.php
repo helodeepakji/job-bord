@@ -24,6 +24,7 @@ class SettingRequest extends Request
             'country_id' => 'nullable|numeric',
             'state_id' => 'nullable|numeric',
             'city_id' => 'nullable|numeric',
+            'higher_education' => 'nullable|string|max:255',
         ];
 
         $account = auth('account')->user();

@@ -16,6 +16,7 @@
                     <a class="btn btn-apply">{{ __('Upload Avatar') }}</a>
                 </div>
 
+                {{-- deepak profile --}}
             {!! $form
                 ->when($account->type->getValue() === 'job-seeker', function ($form) use ($languages, $languageForm) {
                     return $form->addAfter('favorite_tags', 'languages', 'html', \Botble\Base\Forms\FieldOptions\HtmlFieldOption::make()->content(

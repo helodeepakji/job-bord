@@ -134,6 +134,10 @@ class AccountController extends BaseController
             }
         }
 
+        if ($request->has('higher_education')) {
+            $data['higher_education'] = $request->input('higher_education');
+        }
+
         AccountSettingForm::createFromModel($account)
             ->saving(function (AccountSettingForm $form) use ($data): void {
                 $model = $form->getModel();

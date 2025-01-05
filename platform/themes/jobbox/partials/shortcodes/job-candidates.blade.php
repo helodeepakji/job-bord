@@ -9,7 +9,7 @@
     @endif
 
     <style>
-        select {
+        .select2-selection, .select2-search{
             border: 1px solid var(--border-color-2);
             border-radius: 4px;
             box-shadow: none;
@@ -17,6 +17,7 @@
             height: 50px;
             padding-left: 20px;
             width: 100%;
+            padding: 0
         }
     </style>
     <form action="{{ route('public.ajax.candidates') }}" class="candidate-filter-form">
@@ -41,12 +42,13 @@
                                 <!-- Filter by Skill -->
                                 <li>
                                     <label for="skill">Filter by Skill:</label>
-                                    <select id="skill" name="skill" class="skill" data-filter="skill">
-                                        <option value="">Select Skill</option>
+                                    <select id="skillFiter" name="skill[]" class="skill" data-filter="skill"
+                                        multiple="multiple">
                                         @foreach ($skills as $item)
-                                            <option value="{{$item->id}}"
-                                                @if (request()->query('education') == $item->id) selected @endif>
-                                                {{$item->name}}</option>
+                                            <option value="{{ $item->id }}"
+                                                @if (is_array(request()->query('skill')) && in_array($item->id, request()->query('skill'))) selected @endif>
+                                                {{ $item->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </li>
@@ -83,9 +85,9 @@
                                     <select id="education" name="education" class="education" data-filter="education">
                                         <option value="">Select Education Level</option>
                                         @foreach ($degreeLevels as $item)
-                                            <option value="{{$item->id}}"
+                                            <option value="{{ $item->id }}"
                                                 @if (request()->query('education') == $item->id) selected @endif>
-                                                {{$item->name}}</option>
+                                                {{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </li>

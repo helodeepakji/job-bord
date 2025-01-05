@@ -323,7 +323,7 @@ class JobBoardHelper
             'per_page' => ['nullable', 'numeric', 'min:1'],
             'experience' => ['nullable', 'string', Rule::in(['1', '2', '3', '5'])],
             'education' => ['nullable', 'string'],
-            'skill' => ['nullable', 'numeric'],
+            'skill' => ['nullable', 'array'],
             'job_title' => ['nullable', 'string'],
         ]);
 
@@ -384,24 +384,24 @@ class JobBoardHelper
                 $query->where('experience_years', '>=', $experience); // Greater than or equal to selected value
             });
         }
-        
+
         if (isset($data['job_title']) && $data['job_title']) {
             $job_title = $data['job_title'];
             $candidates = $candidates->where('description', 'LIKE', '%' . $job_title . '%');
         }
+
+
+        if (isset($data['skill']) && is_array($data['skill']) && !empty($data['skill'])) {
+            // Debugging to confirm $data['skill'] is an array
+            // dd($data['skill']);
+            $skills = $data['skill'];
         
-        if (isset($data['skill']) && $data['skill']) {
-            $skill = $data['skill'];
-            $candidates = $candidates->whereHas('favoriteSkills', function ($query) use ($skill) {
-                $query->where('id', '=' ,$skill);
+            $candidates = $candidates->whereHas('favoriteSkills', function ($query) use ($skills) {
+                $query->whereIn('jb_account_favorite_skills.skill_id', $skills);
             });
         }
-
         
 
-        
-        
-        
 
 
         // dd($candidates->get());

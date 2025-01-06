@@ -337,13 +337,25 @@ class JobForm extends FormAbstract
                 'choices' => $categories,
                 'value' => old('categories', $selectedCategories),
             ])
+            // ->when(! empty($skills), function (FormAbstract $form) use ($selectedSkills, $skills): void {
+            //     $form->add('skills[]', 'multiCheckList', [
+            //         'label' => __('Job skills'),
+            //         'choices' => $skills,
+            //         'value' => old('skills', $selectedSkills),
+            //     ]);
+            // })
             ->when(! empty($skills), function (FormAbstract $form) use ($selectedSkills, $skills): void {
-                $form->add('skills[]', 'multiCheckList', [
+                $form->add('skills', 'select', [
                     'label' => __('Job skills'),
                     'choices' => $skills,
                     'value' => old('skills', $selectedSkills),
+                    'attr' => [
+                        'multiple' => 'multiple',  // deepak 
+                        'size' => 5,
+                        'id' => 'skills-select'
+                    ]
                 ]);
-            })
+            })            
             ->when(! empty($jobTypes), function (FormAbstract $form) use ($jobTypes, $selectedJobTypes): void {
                 $form->add('jobTypes[]', 'multiCheckList', [
                     'label' => __('Job types'),

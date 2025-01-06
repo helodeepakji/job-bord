@@ -19,6 +19,8 @@ use Botble\JobBoard\Models\Account;
 use Botble\JobBoard\Models\Category;
 use Botble\JobBoard\Models\Company;
 use Botble\JobBoard\Models\Job;
+use Botble\JobBoard\Models\JobSkill;
+use Botble\JobBoard\Models\DegreeLevel;
 use Botble\JobBoard\Models\Package;
 use Botble\JobBoard\Repositories\Interfaces\CategoryInterface;
 use Botble\JobBoard\Repositories\Interfaces\JobInterface;
@@ -599,6 +601,13 @@ app()->booted(function (): void {
                 $companies = $companies->where('name', 'LIKE', $requestQuery['keyword'] . '%');
             }
 
+            if (!empty($requestQuery['location'])) {
+                $companies = $companies->where('address', 'LIKE', '%' . $requestQuery['location'] . '%');
+            }
+
+            // dd($companies->get());
+            // deepak company list
+
             $companies = $companies->with($with)
                 ->wherePublished()
                 ->withAvg('reviews', 'star')
@@ -739,7 +748,10 @@ app()->booted(function (): void {
             $candidates = JobBoardHelper::filterCandidates(request()->input());
         }
 
-        return Theme::partial('shortcodes.job-candidates', compact('shortcode', 'candidates'));
+        $degreeLevels = DegreeLevel::all();
+        $skills = JobSkill::all();
+
+        return Theme::partial('shortcodes.job-candidates', compact('shortcode', 'candidates' , 'degreeLevels' , 'skills'));
     });
 
     shortcode()->setAdminConfig('job-candidates', function (array $attributes) {

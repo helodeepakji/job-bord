@@ -291,6 +291,7 @@ class JobBoardHelper
         }
 
         $params = [
+            'location' => BaseHelper::stringify(Arr::get($inputs, 'location')),
             'keyword' => BaseHelper::stringify(Arr::get($inputs, 'keyword')),
             'sort_by' => (int) Arr::get($inputs, 'sort_by', 'newest') ?: 'newest',
             'order_by' => (int) Arr::get($inputs, 'order_by', 'newest') ?: 'newest',
@@ -312,12 +313,18 @@ class JobBoardHelper
 
     public function filterCandidates(array $params): LengthAwarePaginator
     {
+        // deepak candidates list
+
         $data = Validator::validate($params, [
             'keyword' => ['nullable', 'string', 'max:200'],
             'sort_by' => ['nullable', Rule::in(array_keys($this->getSortByParams()))],
             'order_by' => ['nullable', Rule::in(array_keys($this->getSortByParams()))],
             'page' => ['nullable', 'numeric', 'min:1'],
             'per_page' => ['nullable', 'numeric', 'min:1'],
+            'experience' => ['nullable', 'string', Rule::in(['1', '2', '3', '5'])],
+            'education' => ['nullable', 'string'],
+            'skill' => ['nullable', 'array'],
+            'job_title' => ['nullable', 'string'],
         ]);
 
         $with = [
@@ -368,6 +375,40 @@ class JobBoardHelper
                         ->addSearch('last_name', $keyword, false);
                 });
             }
+        }
+
+        if (isset($data['experience']) && $data['experience']) {
+            $experience = $data['experience'];
+
+            $candidates = $candidates->whereHas('experiences', function ($query) use ($experience) {
+                $query->where('experience_years', '>=', $experience); // Greater than or equal to selected value
+            });
+        }
+
+        if (isset($data['job_title']) && $data['job_title']) {
+            $job_title = $data['job_title'];
+            $candidates = $candidates->where('description', 'LIKE', '%' . $job_title . '%');
+        }
+
+
+        if (isset($data['skill']) && is_array($data['skill']) && !empty($data['skill'])) {
+            // Debugging to confirm $data['skill'] is an array
+            // dd($data['skill']);
+            $skills = $data['skill'];
+        
+            $candidates = $candidates->whereHas('favoriteSkills', function ($query) use ($skills) {
+                $query->whereIn('jb_account_favorite_skills.skill_id', $skills);
+            });
+        }
+        
+
+
+
+        // dd($candidates->get());
+
+        // Filter by education level if provided
+        if (isset($data['education']) && $data['education']) {
+            $candidates = $candidates->where('higher_education', '=', $data['education']);
         }
 
         if (self::isEnabledReview()) {

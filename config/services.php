@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'xobin' => [
+        'api_key' => env('XOBIN_API_KEY'),
+        'base_url' => env('XOBIN_BASE_URL'),
+    ],
+
 ];

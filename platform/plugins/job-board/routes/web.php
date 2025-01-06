@@ -124,6 +124,11 @@ AdminHelper::registerRoutes(function (): void {
                 'uses' => 'CategoryController@updateTree',
                 'permission' => 'job-categories.edit',
             ]);
+            Route::get('all', [
+                'as' => 'all',
+                'uses' => 'CategoryController@getAllCategory',
+                'permission' => 'job-board.tag.index',
+            ]);
         });
 
         Route::group(['prefix' => 'degree-types', 'as' => 'degree-types.'], function (): void {

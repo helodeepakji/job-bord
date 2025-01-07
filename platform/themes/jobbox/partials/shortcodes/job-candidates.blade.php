@@ -19,6 +19,9 @@
             width: 100%;
             padding: 0
         }
+        ul ,li{
+            width: 100% !important;
+        }
     </style>
     <form action="{{ route('public.ajax.candidates') }}" class="candidate-filter-form">
         <section class="section-box-2">

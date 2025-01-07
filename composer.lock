@@ -4152,16 +4152,16 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "5.x-dev"
-                },
                 "laravel": {
-                    "providers": [
-                        "Laravel\\Socialite\\SocialiteServiceProvider"
-                    ],
                     "aliases": {
                         "Socialite": "Laravel\\Socialite\\Facades\\Socialite"
-                    }
+                    },
+                    "providers": [
+                        "Laravel\\Socialite\\SocialiteServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
                 }
             },
             "autoload": {
@@ -7877,16 +7877,16 @@
         },
         {
             "name": "spatie/simple-excel",
-            "version": "3.7.0",
+            "version": "3.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/simple-excel.git",
-                "reference": "668542b3b56dd11058180f26a63d0f192450829a"
+                "reference": "1dfc9c0cd60d8891905dc78946ae763a9f7dec2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/simple-excel/zipball/668542b3b56dd11058180f26a63d0f192450829a",
-                "reference": "668542b3b56dd11058180f26a63d0f192450829a",
+                "url": "https://api.github.com/repos/spatie/simple-excel/zipball/1dfc9c0cd60d8891905dc78946ae763a9f7dec2c",
+                "reference": "1dfc9c0cd60d8891905dc78946ae763a9f7dec2c",
                 "shasum": ""
             },
             "require": {
@@ -7926,7 +7926,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/simple-excel/tree/3.7.0"
+                "source": "https://github.com/spatie/simple-excel/tree/3.7.1"
             },
             "funding": [
                 {
@@ -7934,7 +7934,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-23T08:50:37+00:00"
+            "time": "2024-12-16T11:17:08+00:00"
         },
         {
             "name": "stripe/stripe-php",
@@ -11158,12 +11158,12 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "Unicodeveloper\\Paystack\\PaystackServiceProvider"
-                    ],
                     "aliases": {
                         "Paystack": "Unicodeveloper\\Paystack\\Facades\\Paystack"
-                    }
+                    },
+                    "providers": [
+                        "Unicodeveloper\\Paystack\\PaystackServiceProvider"
+                    ]
                 }
             },
             "autoload": {

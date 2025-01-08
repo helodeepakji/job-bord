@@ -9,6 +9,22 @@
     @endif
 
     <style>
+        .box-list-character ul{
+            margin: 0;
+            width: 100%;
+        }
+        .box-list-character ul li{
+            margin: 0;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+        .box-list-character .select2{
+            margin: 0;
+            width: 100% !important;
+        }
         .select2-selection,
         .select2-search {
             border: 1px solid var(--border-color-2);
@@ -24,6 +40,9 @@
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             list-style: none;
             max-width: 106px;
+            height: 30px;
+            display: flex;
+            flex-direction: row-reverse;
         }
 
         .select2-container--default .select2-selection--multiple .select2-selection__rendered {
@@ -32,6 +51,10 @@
             justify-content: space-between;
             flex-wrap: wrap;
             background: white;
+            gap: 10px;
+        }
+        .select2-selection--multiple{
+            height: auto;
         }
     </style>
     <form action="{{ route('public.ajax.candidates') }}" class="candidate-filter-form">

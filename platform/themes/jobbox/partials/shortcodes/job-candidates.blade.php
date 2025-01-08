@@ -9,11 +9,12 @@
     @endif
 
     <style>
-        .box-list-character ul{
+        .box-list-character ul {
             margin: 0;
             width: 100%;
         }
-        .box-list-character ul li{
+
+        .box-list-character ul li {
             margin: 0;
             display: flex;
             align-items: center;
@@ -21,9 +22,14 @@
             gap: 10px;
             width: 100%;
         }
-        .box-list-character .select2{
+
+        .box-list-character .select2 {
             margin: 0;
             width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            min-height: 50px;
         }
         .select2-selection,
         .select2-search {
@@ -53,7 +59,8 @@
             background: white;
             gap: 10px;
         }
-        .select2-selection--multiple{
+
+        .select2-selection--multiple {
             height: auto;
         }
     </style>

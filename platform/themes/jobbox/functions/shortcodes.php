@@ -601,17 +601,39 @@ app()->booted(function (): void {
                 $companies = $companies->where('name', 'LIKE', $requestQuery['keyword'] . '%');
             }
 
-            if (!empty($requestQuery['location'])) {
-                $companies = $companies->where('address', 'LIKE', '%' . $requestQuery['location'] . '%');
-            }
+            // if (!empty($requestQuery['location'])) {
+            //     $companies = $companies->where('address', 'LIKE', '%' . $requestQuery['location'] . '%');
+            // }
 
-            // dd($companies->get());
-            // deepak company list
+            if (!empty($requestQuery['location'])) {
+                $location = $requestQuery['location'];
+
+                $companies = Company::with(['state', 'city', 'country']) // eager load relationships
+                    ->where('address', 'LIKE', '%' . $location . '%')
+                    ->orWhereHas('state', function ($query) use ($location) {
+                        $query->where('name', 'LIKE', '%' . $location . '%');
+                    })
+                    ->orWhereHas('city', function ($query) use ($location) {
+                        $query->where('name', 'LIKE', '%' . $location . '%');
+                    })
+                    ->orWhereHas('country', function ($query) use ($location) {
+                        $query->where('name', 'LIKE', '%' . $location . '%');
+                    });
+            }
 
             $companies = $companies->with($with)
                 ->wherePublished()
                 ->withAvg('reviews', 'star')
                 ->paginate($requestQuery['per_page'] ?: Arr::first(JobBoardHelper::getPerPageParams()));
+
+
+            // dd($companies->get());
+            // deepak company list
+
+            // $companies = $companies->with($with)
+            //     ->wherePublished()
+            //     ->withAvg('reviews', 'star')
+            //     ->paginate($requestQuery['per_page'] ?: Arr::first(JobBoardHelper::getPerPageParams()));
 
             return Theme::partial('shortcodes.job-companies', compact('shortcode', 'companies'));
         });
@@ -633,9 +655,9 @@ app()->booted(function (): void {
                     'submit',
                     'submit',
                     ButtonFieldOption::make()
-                       ->label(__('Send Message'))
-                       ->attributes(['class' => 'submit btn btn-send-message'])
-                       ->toArray(),
+                        ->label(__('Send Message'))
+                        ->attributes(['class' => 'submit btn btn-send-message'])
+                        ->toArray(),
                 );
         });
 
@@ -751,7 +773,7 @@ app()->booted(function (): void {
         $degreeLevels = DegreeLevel::all();
         $skills = JobSkill::all();
 
-        return Theme::partial('shortcodes.job-candidates', compact('shortcode', 'candidates' , 'degreeLevels' , 'skills'));
+        return Theme::partial('shortcodes.job-candidates', compact('shortcode', 'candidates', 'degreeLevels', 'skills'));
     });
 
     shortcode()->setAdminConfig('job-candidates', function (array $attributes) {

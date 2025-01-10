@@ -30,10 +30,16 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
+use App\Services\XobinService;
+
+// deepak profile
 class AccountController extends BaseController
 {
-    public function __construct()
+    protected $xobinService;
+
+    public function __construct(XobinService $xobinService)
     {
+        $this->xobinService = $xobinService;
         OptimizerHelper::disable();
     }
 
@@ -43,7 +49,7 @@ class AccountController extends BaseController
          * @var Account $account
          */
         $account = auth('account')->user();
-
+        // dd($account);
         SeoHelper::setTitle($account->name);
         Theme::breadcrumb()
             ->add(__('My Profile'), route('public.account.overview'))
@@ -69,6 +75,7 @@ class AccountController extends BaseController
          * @var Account $account
          */
         $account = auth('account')->user();
+        // dd($account);
 
         $jobSkills = [];
         $jobTags = [];
@@ -102,6 +109,42 @@ class AccountController extends BaseController
             compact('account', 'jobSkills', 'jobTags', 'selectedJobSkills', 'selectedJobTags', 'languages', 'form', 'languageForm')
         );
     }
+    
+    public function getAssessment()
+    {
+        SeoHelper::setTitle('Account Assessment');
+    
+        /**
+         * @var Account $account
+         */
+        $account = auth('account')->user();
+    
+        try {
+            $assessments = $this->xobinService->listAssessments();
+        } catch (\Exception $e) {
+            // If the request expects JSON (API/AJAX), return error as JSON
+            if (request()->expectsJson()) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+    
+            // Optionally handle error in the view (optional)
+            return JobBoardHelper::scope(
+                'account.settings.assessment',
+                compact('account')
+            )->withErrors(['error' => $e->getMessage()]);
+        }
+    
+        // Return JSON response if it's an API/AJAX call
+        if (request()->expectsJson()) {
+            return response()->json(['account' => $account, 'assessments' => $assessments]);
+        }
+    
+        // Render the view for normal browser requests
+        return JobBoardHelper::scope(
+            'account.settings.assessment',
+            compact('account', 'assessments')
+        );
+    }    
 
     public function postSettings(SettingRequest $request)
     {

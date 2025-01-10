@@ -10,6 +10,8 @@ use Botble\JobBoard\Http\Controllers\JobApplicationController;
 use Botble\Theme\Facades\Theme;
 use Illuminate\Support\Facades\Route;
 
+// deepak profile
+
 Route::group(['namespace' => 'Botble\JobBoard\Http\Controllers'], function (): void {
     Theme::registerRoutes(function (): void {
         Route::group(['as' => 'public.account.', 'namespace' => 'Auth'], function (): void {
@@ -119,6 +121,11 @@ Route::group(['namespace' => 'Botble\JobBoard\Http\Controllers'], function (): v
                     Route::get('settings', [
                         'as' => 'settings',
                         'uses' => 'getSettings',
+                    ]);
+                    
+                    Route::get('assessment', [
+                        'as' => 'assessment',
+                        'uses' => 'getAssessment',
                     ]);
 
                     Route::post('settings', [

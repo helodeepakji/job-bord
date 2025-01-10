@@ -128,6 +128,11 @@ Route::group(['namespace' => 'Botble\JobBoard\Http\Controllers'], function (): v
                         'uses' => 'getAssessment',
                     ]);
 
+                    Route::get('assessment/{id}/details', [
+                        'as' => 'assessment.details',
+                        'uses' => 'getAssessmentDetails',
+                    ]);
+
                     Route::post('settings', [
                         'as' => 'post.settings',
                         'uses' => 'postSettings',

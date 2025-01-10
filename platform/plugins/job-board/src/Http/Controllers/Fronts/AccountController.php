@@ -109,16 +109,16 @@ class AccountController extends BaseController
             compact('account', 'jobSkills', 'jobTags', 'selectedJobSkills', 'selectedJobTags', 'languages', 'form', 'languageForm')
         );
     }
-    
+
     public function getAssessment()
     {
         SeoHelper::setTitle('Account Assessment');
-    
+
         /**
          * @var Account $account
          */
         $account = auth('account')->user();
-    
+
         try {
             $assessments = $this->xobinService->listAssessments();
         } catch (\Exception $e) {
@@ -126,25 +126,49 @@ class AccountController extends BaseController
             if (request()->expectsJson()) {
                 return response()->json(['error' => $e->getMessage()], 500);
             }
-    
+
             // Optionally handle error in the view (optional)
             return JobBoardHelper::scope(
                 'account.settings.assessment',
                 compact('account')
             )->withErrors(['error' => $e->getMessage()]);
         }
-    
+
         // Return JSON response if it's an API/AJAX call
         if (request()->expectsJson()) {
             return response()->json(['account' => $account, 'assessments' => $assessments]);
         }
-    
+
         // Render the view for normal browser requests
         return JobBoardHelper::scope(
             'account.settings.assessment',
             compact('account', 'assessments')
         );
-    }    
+    }
+
+    public function getAssessmentDetails($id)
+    {
+        SeoHelper::setTitle('Account Assessment');
+
+        /**
+         * @var Account $account
+         */
+        $account = auth('account')->user();
+
+        try {
+            // Correct the string concatenation by using the dot (.) operator
+            $invite = $this->xobinService->sendInvite(
+                $account->email,
+                $account->first_name . ' ' . $account->last_name,
+                $id
+            );
+
+            dd($invite); 
+            return response()->json($invite);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 
     public function postSettings(SettingRequest $request)
     {

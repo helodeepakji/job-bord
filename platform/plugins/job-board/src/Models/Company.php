@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Botble\Location\Models\City;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class Company extends BaseModel
 {
@@ -152,5 +155,10 @@ class Company extends BaseModel
             $company->reviews()->delete();
             $company->accounts()->detach();
         });
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 }

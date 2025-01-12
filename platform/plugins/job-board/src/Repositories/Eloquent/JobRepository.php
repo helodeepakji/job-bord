@@ -13,6 +13,7 @@ class JobRepository extends RepositoriesAbstract implements JobInterface
 {
     public function getJobs(array $filters = [], array $params = [])
     {
+
         $filters = JobBoardHelper::getJobFilters($filters);
 
         $filters = array_merge([
@@ -69,9 +70,9 @@ class JobRepository extends RepositoriesAbstract implements JobInterface
         if (JobBoardHelper::isClosedJobAccessible() || JobBoardHelper::isClosedJobListing()) {
             unset($jobDisplayQueryConditions['jb_jobs.status']);
         }
-
+        
         $this->model = $this->model->select($params['select'])->where($jobDisplayQueryConditions);
-
+        
         if (JobBoardHelper::isClosedJobAccessible() || JobBoardHelper::isClosedJobListing()) {
             $this->model = $this->model->whereIn('jb_jobs.status', [
                 JobStatusEnum::PUBLISHED, JobStatusEnum::CLOSED,
@@ -102,7 +103,12 @@ class JobRepository extends RepositoriesAbstract implements JobInterface
             unset($filters['offered_salary_from'], $filters['offered_salary_to']);
         }
 
+        // deepak Job
+
         $this->model = $this->model->filterJobs($filters);
+
+                
+        // dd($this->model);
 
         if (JobBoardHelper::isClosedJobListing()) {
             $params['order_by']['application_closing_date'] = 'asc';

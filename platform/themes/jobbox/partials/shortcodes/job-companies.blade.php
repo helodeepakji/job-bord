@@ -7,7 +7,17 @@
     @if (is_plugin_active('ads'))
         {!! apply_filters('ads_render', null, 'company_list_before', ['class' => 'my-2 text-center']) !!}
     @endif
-
+    <style>
+        @media screen and (max-width: 800px) {
+            .dform {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .banner-hero.banner-company{
+                padding: 40px 0 38px;
+            }
+        }
+    </style>
     <section class="section-box-2">
         <div class="container">
             <div class="banner-hero banner-company">
@@ -24,7 +34,7 @@
                             @endforeach
                         </ul> --}}
                         <div class="box-search">
-                            <form method="GET" action="" class="d-flex">
+                            <form method="GET" action="" class="d-flex dform">
                                 <input type="text" name="keyword" value="{{ request()->query('keyword') }}"
                                     placeholder="Search company by name..." class="search-input" />
                                 <input type="text" name="location" value="{{ request()->query('location') }}"

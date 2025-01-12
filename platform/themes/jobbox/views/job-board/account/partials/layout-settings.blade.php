@@ -46,7 +46,9 @@
                 <div class="col-lg-3 col-md-4 col-sm-12">
                     <div class="box-nav-tabs nav-tavs-profile mb-5">
                         <ul class="nav" role="tablist">
+                            {{-- deepak profile --}}
                             <li><a @class(['btn btn-border aboutus-icon mb-20', 'active' => $url === route('public.account.settings')]) href="{{ route('public.account.settings') }}" >{{ __('My Profile') }}</a></li>
+                            <li><a @class(['btn btn-border aboutus-icon mb-20', 'active' => $url === route('public.account.assessment')]) href="{{ route('public.account.assessment') }}" >{{ __('Assessment') }}</a></li>
                             <li><a @class(['btn btn-border recruitment-icon mb-20', 'active' => $url === route('public.account.security')]) href="{{ route('public.account.security') }}" >{{ __('Security') }}</a></li>
                             <li><a @class(['btn btn-border recruitment-icon mb-20', 'active' => $url === route('public.account.overview')]) href="{{ route('public.account.overview') }}">{{ __('Overview') }}</a></li>
                            @if ($account->isJobSeeker())

@@ -82,7 +82,6 @@
 
 <div
     class="preloader"
-    id="preloader"
->
+    id="preloader">
     <div class="preloader-loading"></div>
 </div>

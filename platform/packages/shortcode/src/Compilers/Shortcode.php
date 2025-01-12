@@ -8,8 +8,7 @@ class Shortcode
         protected string $name,
         protected array $attributes = [],
         public ?string $content = null
-    ) {
-    }
+    ) {}
 
     public function get(string $attribute, ?string $fallback = null): string
     {
@@ -33,6 +32,12 @@ class Shortcode
     {
         return $this->content;
     }
+
+    public function setAttribute(string $key, string $value): void
+    {
+        $this->attributes[$key] = $value;
+    }
+
 
     public function toArray(): array
     {

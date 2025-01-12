@@ -255,6 +255,107 @@ app()->booted(function (): void {
             return Theme::partial('shortcodes.job-grid', compact('shortcode'));
         });
 
+        add_shortcode('info-grid', __('Info Grid'), __('Info Grid Banner'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.info-grid', compact('shortcode'));
+        });
+        
+        add_shortcode('info-grid-right', __('Info Grid Right'), __('Info Grid Banner'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.info-grid-right', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('info-grid', function (array $attributes) {
+            return Theme::partial('shortcodes.info-grid-admin-config', compact('attributes'));
+        });
+        
+        shortcode()->setAdminConfig('info-grid-right', function (array $attributes) {
+            return Theme::partial('shortcodes.info-grid-admin-config', compact('attributes'));
+        });        
+
+
+        add_shortcode('list-grid', __('List Grid'), __('Info Grid Banner'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.list-grid', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('list-grid', function (array $attributes) {
+            return Theme::partial('shortcodes.list-grid-admin-config', compact('attributes'));
+        });
+        
+        add_shortcode('brand-grid', __('Brand Grid'), __('Brand Grid'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.brand', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('brand-grid', function (array $attributes) {
+            return Theme::partial('shortcodes.brand-admin-config', compact('attributes'));
+        });
+        
+        add_shortcode('service', __('Service Component'), __('Service Component'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.services', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('service', function (array $attributes) {
+            return Theme::partial('shortcodes.services-admin-config', compact('attributes'));
+        });
+        
+        add_shortcode('hero-section', __('Hero Section'), __('Hero Section'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.hero-selection', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('hero-section', function (array $attributes) {
+            return Theme::partial('shortcodes.hero-selection-admin-config', compact('attributes'));
+        });
+        
+        add_shortcode('hero-section-left', __('Hero Section Left'), __('Hero Section Left'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.hero-selection-left', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('hero-section-left', function (array $attributes) {
+            return Theme::partial('shortcodes.hero-selection-admin-config', compact('attributes'));
+        });
+        
+        add_shortcode('points', __('Point Section'), __('Point Section'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.points', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('points', function (array $attributes) {
+            return Theme::partial('shortcodes.points-admin-config', compact('attributes'));
+        });
+        
+        add_shortcode('number-grid', __('Number Grid Section'), __('Number Grid Section'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.number-grid', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('number-grid', function (array $attributes) {
+            return Theme::partial('shortcodes.number-grid-admin-config', compact('attributes'));
+        });
+        
+        
+        add_shortcode('side-number-grid', __('Side Number Grid Section'), __(' Side Number Grid Section'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.side-number-grid', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('side-number-grid', function (array $attributes) {
+            return Theme::partial('shortcodes.side-number-grid-admin-config', compact('attributes'));
+        });
+        
+        add_shortcode('points-out', __('Point Number Grid Section'), __('Point Number Grid Section'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.points-out', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('points-out', function (array $attributes) {
+            return Theme::partial('shortcodes.points-out-admin-config', compact('attributes'));
+        });
+        
+        
+        add_shortcode('new-hero-section', __('New Hero Section'), __('New Hero Section'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.new-hero-section', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('new-hero-section', function (array $attributes) {
+            return Theme::partial('shortcodes.new-hero-section-admin-config', compact('attributes'));
+        });
+        
+        // deepak ui bock
+
         shortcode()->setAdminConfig('job-grid', function (array $attributes) {
             return Theme::partial('shortcodes.job-grid-admin-config', compact('attributes'));
         });

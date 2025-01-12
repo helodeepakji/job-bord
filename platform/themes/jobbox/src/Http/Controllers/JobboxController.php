@@ -155,6 +155,7 @@ class JobboxController extends PublicController
 
     public function ajaxQuickSearchJobs(Request $request, BaseHttpResponse $response): BaseHttpResponse
     {
+        // deepak job
         $validated = $request->validate([
             'job_categories' => ['nullable', 'string'],
             'location' => ['nullable', 'string'],
@@ -165,10 +166,12 @@ class JobboxController extends PublicController
             'take' => 10,
         ]);
 
+
         if ($jobs->isEmpty()) {
             return $response->setError();
         }
 
+        // dd($jobs->toArray());
         return $response->setData([
             'html' => Theme::partial('job-quick-search', compact('jobs')),
         ]);

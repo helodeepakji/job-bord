@@ -44,9 +44,13 @@
             padding: 0
         }
 
+        .select2-search input{
+            width: 100% !important;
+        }
+
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             list-style: none;
-            max-width: 106px;
+            max-width: max-content;
             height: 30px;
             display: flex;
             flex-direction: row-reverse;

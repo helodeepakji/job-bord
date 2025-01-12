@@ -30,17 +30,22 @@ class FilterJobsBuilder extends BaseQueryBuilder
             'per_page' => null,
         ], $filters);
 
+        
         if ($keyword = Arr::get($filters, 'keyword')) {
             if (
                 is_plugin_active('language') &&
                 is_plugin_active('language-advanced') &&
                 Language::getCurrentLocale() != Language::getDefaultLocale()
-            ) {
-                $this
+                ) {
+                    $this
                     ->where(function (BaseQueryBuilder $query) use ($keyword): void {
                         $query
                             ->whereHas('translations', function (BaseQueryBuilder $query) use ($keyword): void {
-                                $query->addSearch('name', $keyword, false, false);
+                                // $query->addSearch('name', $keyword, false, false);
+                                $query->addSearch('name', $keyword, false, false)
+                                ->orWhere(function ($query) use ($keyword) {
+                                    $query->addSearch('description', $keyword, false, false);
+                                });
                             })
                             ->orWhere(function (BaseQueryBuilder $query) use ($keyword): void {
                                 $query
@@ -58,8 +63,13 @@ class FilterJobsBuilder extends BaseQueryBuilder
                     });
             } else {
                 $this->where(function (BaseQueryBuilder $query) use ($keyword): void {
-                    $query
-                        ->addSearch('name', $keyword, false, false)
+                    // $query->addSearch('name', $keyword, false, false)
+                    // dd($keyword);
+                    // deepak job
+                    $query->addSearch('name', $keyword, false, false)
+                    ->orWhere(function ($query) use ($keyword) {
+                        $query->addSearch('description', $keyword, false, false);
+                    })
                         ->orWhere(function (BaseQueryBuilder $query) use ($keyword): void {
                             $query
                                 ->where('hide_company', false)

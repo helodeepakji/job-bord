@@ -44,17 +44,8 @@
             padding: 0
         }
 
-        .select2-search input{
+        .select2-search input {
             width: 100% !important;
-        }
-
-        .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
-            list-style: none;
-            max-width: max-content;
-            height: 30px;
-            display: flex;
-            flex-direction: row-reverse;
-            margin: 0;
         }
 
         .select2-container--default .select2-selection--multiple .select2-selection__rendered {
@@ -63,10 +54,29 @@
             justify-content: flex-start;
             flex-wrap: wrap;
             background: white;
+            padding: 0;
+        }
+
+        .select2-container--default .select2-search--inline .select2-search__field {
+            padding-left: 20px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+            list-style: none;
+            min-height: max-content;
+            display: flex;
+            flex-direction: row-reverse;
+            margin: 0;
+            width: 100%;
+            background-color: white;
         }
 
         .select2-selection--multiple {
             height: auto;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid rgb(224, 230, 247);
         }
     </style>
     <form action="{{ route('public.ajax.candidates') }}" class="candidate-filter-form">
@@ -114,8 +124,7 @@
                                 <!-- Filter by Experience -->
                                 <li>
                                     <label for="experience">Filter by Experience (in years):</label>
-                                    <select id="experience" name="experience" class="keyword"
-                                        data-filter="experience">
+                                    <select id="experience" name="experience" class="keyword" data-filter="experience">
                                         <option value="">Select Experience</option>
                                         <option value="1" @if (request()->query('experience') == '1') selected @endif>1 Year
                                         </option>

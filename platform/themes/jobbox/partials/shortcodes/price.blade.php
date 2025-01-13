@@ -119,9 +119,9 @@
 
 <section class="pricing-section">
     <div class="container">
-        <div class="pricing-section__label">{{ Arr::get($shortcode, 'pricing_label', 'Lorem ipsum') }}</div>
-        <h1 class="pricing-section__title">{{ Arr::get($shortcode, 'pricing_title', 'Lorem ipsum dolor sit amet consecutar domor at elis') }}</h1>
-        <p class="pricing-section__description">{{ Arr::get($shortcode, 'pricing_description', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.') }}</p>
+        <div class="pricing-section__label">{!! BaseHelper::clean($shortcode->pricing_label ?? 'Lorem ipsum') !!}</div>
+        <h1 class="pricing-section__title">{!! BaseHelper::clean($shortcode->pricing_title ?? 'Lorem ipsum dolor sit amet consecutar domor at elis') !!}</h1>
+        <p class="pricing-section__description">{!! BaseHelper::clean($shortcode->pricing_description ?? 'Lorem ipsum dolor sit amet consecutar domor at elis') !!}</p>
 
         <div class="pricing-toggle">
             <button class="pricing-toggle__button active" data-period="monthly">Monthly</button>
@@ -129,35 +129,84 @@
         </div>
 
         <div class="row">
-            @foreach (['starter', 'pro', 'premium'] as $planKey)
-                <div class="col-lg-4">
-                    <div class="pricing-card {{ $loop->first ? 'pricing-card--highlighted' : '' }}">
-                        <div class="pricing-card__type">
-                            {{ Arr::get($shortcode, "{$planKey}_type", ucfirst($planKey)) }}
-                        </div>
-                        <div class="pricing-card__price" 
-                             data-monthly="{{ Arr::get($shortcode, "{$planKey}_monthly_price", '0.00') }}" 
-                             data-yearly="{{ Arr::get($shortcode, "{$planKey}_yearly_price", '0.00') }}">
-                            ${{ Arr::get($shortcode, "{$planKey}_monthly_price", '0.00') }}
-                        </div>
+            <div class="col-lg-4">
+                <div class="pricing-card">
+                    <div class="pricing-card__type">{!! BaseHelper::clean($shortcode->plan_1 ?? 'Starter') !!}</div>
+                    <div class="pricing-card__price" data-monthly="{!! BaseHelper::clean($shortcode->plan_1_price ?? '$00') !!}"
+                        data-yearly="{!! BaseHelper::clean($shortcode->plan_1_price_year ?? '$00') !!}">{!! BaseHelper::clean($shortcode->plan_1_price ?? '$00') !!}</div>
                         <div class="pricing-card__features">
-                            @foreach (explode("\n", Arr::get($shortcode, "{$planKey}_features", '')) as $feature)
-                                @if (!empty($feature))
+                            <div class="pricing-card__features">
+                                @php
+                                    $features = explode("\n", $shortcode->plan_1_features ?? '');
+                                    $features = array_filter($features);
+                                @endphp
+                                @foreach ($features as $feature)
                                     <div class="pricing-card__feature">
                                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
                                         </svg>
-                                        {{ $feature }}
+                                        {!! BaseHelper::clean($feature) !!}
                                     </div>
-                                @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    <button class="pricing-card__button">Action</button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="pricing-card pricing-card--highlighted">
+                    <div class="pricing-card__type">{!! BaseHelper::clean($shortcode->plan_2 ?? 'Pro') !!}</div>
+                    <div class="pricing-card__price" data-monthly="{!! BaseHelper::clean($shortcode->plan_2_price ?? '$00') !!}"
+                        data-yearly="{!! BaseHelper::clean($shortcode->plan_2_price_year ?? '$00') !!}">{!! BaseHelper::clean($shortcode->plan_2_price ?? '$00') !!}</div>
+                    <!-- Features remain the same -->
+                    <div class="pricing-card__features">
+                        <div class="pricing-card__features">
+                            @php
+                                $features = explode("\n", $shortcode->plan_2_features ?? '');
+                                $features = array_filter($features);
+                            @endphp
+                            @foreach ($features as $feature)
+                                <div class="pricing-card__feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    {!! BaseHelper::clean($feature) !!}
+                                </div>
                             @endforeach
                         </div>
-                        <button class="pricing-card__button">{{ __('Action') }}</button>
                     </div>
+                    <button class="pricing-card__button">Action</button>
                 </div>
-            @endforeach
+            </div>
+            <div class="col-lg-4">
+                <div class="pricing-card">
+                    <div class="pricing-card__type">{!! BaseHelper::clean($shortcode->plan_3 ?? 'Premium') !!}</div>
+                    <div class="pricing-card__price" data-monthly="{!! BaseHelper::clean($shortcode->plan_3_price ?? '$00') !!}"
+                        data-yearly="{!! BaseHelper::clean($shortcode->plan_3_price_year ?? '$00') !!}">{!! BaseHelper::clean($shortcode->plan_3_price ?? '$00') !!}</div>
+                    <div class="pricing-card__features">
+                        <div class="pricing-card__features">
+                            @php
+                                $features = explode("\n", $shortcode->plan_3_features ?? '');
+                                $features = array_filter($features);
+                            @endphp
+                            @foreach ($features as $feature)
+                                <div class="pricing-card__feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    {!! BaseHelper::clean($feature) !!}
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <button class="pricing-card__button">Action</button>
+                </div>
+            </div>
         </div>
-        
+
     </div>
 </section>
 
@@ -179,7 +228,7 @@
                     const price = priceEl.dataset[period];
                     priceEl.style.transform = 'scale(0.8)';
                     setTimeout(() => {
-                        priceEl.textContent = `$${price}`;
+                        priceEl.textContent = `${price}`;
                         priceEl.style.transform = 'scale(1)';
                     }, 150);
                 });

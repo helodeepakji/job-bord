@@ -78,7 +78,7 @@ return [
                 'backend' => 'js/backend.js',
             ];
 
-            $hasVersions = ['main', 'script', 'app', 'backend'];
+            $hasVersions = ['script', 'app', 'backend'];
 
             if (theme_option('enabled_animation_when_loading_page', 'yes') === 'yes') {
                 $theme->asset()->usePath()->add('animate-css', 'plugins/animate.min.css', [], [], $version);

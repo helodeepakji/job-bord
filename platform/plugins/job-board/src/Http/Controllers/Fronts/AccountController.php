@@ -51,6 +51,7 @@ class AccountController extends BaseController
          * @var Account $account
          */
         $account = auth('account')->user();
+        $scoreAssessment = Assessment::where('account_id', $account->id)->get();
         // dd($account);
         SeoHelper::setTitle($account->name);
         Theme::breadcrumb()
@@ -65,7 +66,7 @@ class AccountController extends BaseController
             ->where('account_id', $account->id)
             ->get();
 
-        $data = compact('account', 'educations', 'experiences');
+        $data = compact('account', 'educations', 'experiences' , 'scoreAssessment');
 
         return JobBoardHelper::scope('account.overview', $data);
     }

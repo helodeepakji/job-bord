@@ -1,6 +1,9 @@
 @php
     Theme::asset()->usePath()->add('css-bar-rating', 'plugins/jquery-bar-rating/themes/css-stars.css');
-    Theme::asset()->container('footer')->usePath()->add('jquery-bar-rating-js', 'plugins/jquery-bar-rating/jquery.barrating.min.js');
+    Theme::asset()
+        ->container('footer')
+        ->usePath()
+        ->add('jquery-bar-rating-js', 'plugins/jquery-bar-rating/jquery.barrating.min.js');
 
     Theme::set('pageTitle', $candidate->name);
 
@@ -26,7 +29,7 @@
         </div>
         <div class="box-company-profile">
             <div class="image-candidate">
-                <img src="{{ $candidate->avatar_thumb_url }}" alt="{{ $candidate->name }}" >
+                <img src="{{ $candidate->avatar_thumb_url }}" alt="{{ $candidate->name }}">
             </div>
             <div class="row mt-30">
                 <div class="col-lg-8 col-md-12">
@@ -37,23 +40,27 @@
                 </div>
 
                 @php
-                    $resumeAvailable = ! $candidate->hide_cv && $candidate->resume;
+                    $resumeAvailable = !$candidate->hide_cv && $candidate->resume;
                 @endphp
 
-                @if ((! JobBoardHelper::isCandidateInformationHiddenForGuests() || auth('account')->check()) && ! JobBoardHelper::isOnlyEmployerCanViewCandidateInformation())
-                    @if($resumeAvailable)
+                @if (
+                    (!JobBoardHelper::isCandidateInformationHiddenForGuests() || auth('account')->check()) &&
+                        !JobBoardHelper::isOnlyEmployerCanViewCandidateInformation())
+                    @if ($resumeAvailable)
                         <div class="col-lg-4 col-md-12 text-lg-end">
-                            <a class="btn btn-download-icon btn-apply btn-apply-big" href="{{ $candidate->resumeDownloadUrl }}">{{ __('Download CV') }}</a>
+                            <a class="btn btn-download-icon btn-apply btn-apply-big"
+                                href="{{ $candidate->resumeDownloadUrl }}">{{ __('Download CV') }}</a>
                         </div>
                     @endif
                 @elseif($resumeAvailable)
-                    @if(! auth('account')->check())
+                    @if (!auth('account')->check())
                         <div class="col-lg-4 col-md-12 text-lg-end">
-                            <a class="alert-label-for-guest text-muted justify-content-end" href="{{ route('public.account.login') }}">
+                            <a class="alert-label-for-guest text-muted justify-content-end"
+                                href="{{ route('public.account.login') }}">
                                 {{ JobBoardHelper::isOnlyEmployerCanViewCandidateInformation() ? __('Please log in as employer account to download CV') : __('Please log in to download CV') }}
                             </a>
                         </div>
-                    @elseif (! auth('account')->user()->isEmployer() && JobBoardHelper::isOnlyEmployerCanViewCandidateInformation())
+                    @elseif (!auth('account')->user()->isEmployer() && JobBoardHelper::isOnlyEmployerCanViewCandidateInformation())
                         <div class="col-lg-4 col-md-12 text-lg-end">
                             <span class="alert-label-for-guest text-muted justify-content-end">
                                 {{ __('Please log in as employer account to download CV') }}
@@ -62,14 +69,13 @@
                     @endif
                 @endif
 
-                @if(
-                    JobBoardHelper::isOnlyEmployerCanViewCandidateInformation()
-                    && auth('account')->check()
-                    && auth('account')->user()->type->getValue() === 'employer'
-                )
-                    @if(! $candidate->hide_cv && $candidate->resume)
+                @if (JobBoardHelper::isOnlyEmployerCanViewCandidateInformation() &&
+                        auth('account')->check() &&
+                        auth('account')->user()->type->getValue() === 'employer')
+                    @if (!$candidate->hide_cv && $candidate->resume)
                         <div class="col-lg-4 col-md-12 text-lg-end">
-                            <a class="btn btn-download-icon btn-apply btn-apply-big" href="{{ $candidate->resumeDownloadUrl }}">{{ __('Download CV') }}</a>
+                            <a class="btn btn-download-icon btn-apply btn-apply-big"
+                                href="{{ $candidate->resumeDownloadUrl }}">{{ __('Download CV') }}</a>
                         </div>
                     @endif
                 @endif
@@ -85,28 +91,31 @@
             <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                 <div class="content-single">
                     <div class="tab-content">
-                        <div class="tab-pane fade active show mb-5" id="tab-short-bio" role="tabpanel" aria-labelledby="tab-short-bio">
+                        <div class="tab-pane fade active show mb-5" id="tab-short-bio" role="tabpanel"
+                            aria-labelledby="tab-short-bio">
                             <h4>{{ __('About Me') }}</h4>
                             {!! BaseHelper::clean($candidate->bio) !!}
                         </div>
 
-                        @if($countEducation = $educations->count())
+                        @if ($countEducation = $educations->count())
                             <div class="candidate-education-details mt-4 pt-3">
                                 <h4 class="fs-17 fw-bold mb-0">{{ __('Education') }}</h4>
-                                @foreach($educations as $education)
+                                @foreach ($educations as $education)
                                     <div class="candidate-education-content mt-4 d-flex">
-                                        <div class="circle flex-shrink-0 bg-soft-primary">{{ $education->specialized ? strtoupper(substr($education->specialized, 0, 1)) : 'E' }}</div>
+                                        <div class="circle flex-shrink-0 bg-soft-primary">
+                                            {{ $education->specialized ? strtoupper(substr($education->specialized, 0, 1)) : 'E' }}
+                                        </div>
                                         <div class="ms-4">
                                             @if ($education->specialized)
                                                 <h6 class="fs-16 mb-1">{{ $education->specialized }}</h6>
                                             @endif
                                             <p class="mb-2 text-muted">{{ $education->school }} -
-                                                ({{  $education->started_at->format('Y') }} -
-                                                {{ $education->ended_at ? $education->ended_at->format('Y'): __('Now') }})
+                                                ({{ $education->started_at->format('Y') }} -
+                                                {{ $education->ended_at ? $education->ended_at->format('Y') : __('Now') }})
                                             </p>
                                             <p class="text-muted">{!! BaseHelper::clean($education->description) !!}</p>
                                         </div>
-                                        @if ($countEducation >= 1 && ! $loop->last)
+                                        @if ($countEducation >= 1 && !$loop->last)
                                             <span class="line"></span>
                                         @endif
                                     </div>
@@ -114,23 +123,25 @@
                             </div>
                         @endif
 
-                        @if($countExperience = $experiences->count())
+                        @if ($countExperience = $experiences->count())
                             <div class="candidate-education-details mt-4 pt-3">
                                 <h4 class="fs-17 fw-bold mb-0">{{ __('Experience') }}</h4>
-                                @foreach( $experiences as $experience)
+                                @foreach ($experiences as $experience)
                                     <div class="candidate-education-content mt-4 d-flex">
-                                        <div class="circle flex-shrink-0 bg-soft-primary"> {{ $experience->position ? strtoupper(substr($experience->position, 0, 1)) : '' }} </div>
+                                        <div class="circle flex-shrink-0 bg-soft-primary">
+                                            {{ $experience->position ? strtoupper(substr($experience->position, 0, 1)) : '' }}
+                                        </div>
                                         <div class="ms-4">
                                             @if ($experience->position)
                                                 <h6 class="fs-16 mb-1">{{ $experience->position }}</h6>
                                             @endif
                                             <p class="mb-2 text-muted">{{ $experience->company }} -
-                                                ({{  $experience->started_at->format('Y') }} -
-                                                {{ $experience->ended_at ? $experience->ended_at->format('Y'): __('Now')}})
+                                                ({{ $experience->started_at->format('Y') }} -
+                                                {{ $experience->ended_at ? $experience->ended_at->format('Y') : __('Now') }})
                                             </p>
                                             <p class="text-muted">{!! BaseHelper::clean($experience->description) !!}</p>
                                         </div>
-                                        @if ($countExperience >= 1 && ! $loop->last)
+                                        @if ($countExperience >= 1 && !$loop->last)
                                             <span class="line"></span>
                                         @endif
                                     </div>
@@ -139,16 +150,20 @@
                         @endif
                     </div>
 
-                    @if(JobBoardHelper::isEnabledReview())
+                    @if (JobBoardHelper::isEnabledReview())
                         <div class="mt-4 pt-3 position-relative review-listing" @style(['display: none' => $candidate->reviews_count < 1])>
-                            <h6 class="fs-17 fw-semibold mb-3">{{ __(":candidate's Reviews", ['candidate' => $candidate->name]) }}</h6>
+                            <h6 class="fs-17 fw-semibold mb-3">
+                                {{ __(":candidate's Reviews", ['candidate' => $candidate->name]) }}</h6>
                             <div class="spinner-overflow"></div>
-                            <div class="half-circle-spinner" style="display: none;position: absolute;top: 70%;left: 50%;">
+                            <div class="half-circle-spinner"
+                                style="display: none;position: absolute;top: 70%;left: 50%;">
                                 <div class="circle circle-1"></div>
                                 <div class="circle circle-2"></div>
                             </div>
                             <div class="review-list">
-                                @include(Theme::getThemeNamespace('views.job-board.partials.review-load'), ['reviews' => $candidate->reviews])
+                                @include(Theme::getThemeNamespace('views.job-board.partials.review-load'), [
+                                    'reviews' => $candidate->reviews,
+                                ])
                             </div>
                         </div>
 
@@ -170,79 +185,79 @@
                                 margin: 2rem auto;
                                 padding: 0 1rem;
                             }
-                    
+
                             .score-item {
                                 margin-bottom: 3rem;
                             }
-                    
+
                             .score-item__header {
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: center;
                                 margin-bottom: 0.75rem;
                             }
-                    
+
                             .score-item__label {
                                 font-size: 1.5rem;
                                 font-weight: 400;
                                 margin: 0;
                             }
-                    
+
                             .score-item__value {
                                 font-size: 2rem;
                                 font-weight: 500;
                                 margin: 0;
                             }
-                    
+
                             .score-item__progress {
                                 height: 8px;
                                 background-color: #e9ecef;
                                 border-radius: 4px;
                                 overflow: hidden;
                             }
-                    
+
                             .score-item__bar {
                                 height: 100%;
                                 background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
                                 border-radius: 4px;
                                 transition: width 0.6s ease;
                             }
-                    
+
                             @media (max-width: 576px) {
                                 .score-item__label {
                                     font-size: 1.25rem;
                                 }
-                                
+
                                 .score-item__value {
                                     font-size: 1.5rem;
                                 }
                             }
                         </style>
 
-                        @if(JobBoardHelper::isEnabledReview())
+                        @if (JobBoardHelper::isEnabledReview())
                             <div>
                                 {!! Theme::partial('rating-star', ['star' => round($candidate->reviews_avg_star)]) !!}
                                 <span class="font-xs color-text-mutted ml-10">
-                                <span>(</span>
-                                <span>{{ $candidate->reviews_count }}</span>
-                                <span>)</span>
-                            </span>
+                                    <span>(</span>
+                                    <span>{{ $candidate->reviews_count }}</span>
+                                    <span>)</span>
+                                </span>
                             </div>
                         @endif
                     </div>
                     <div class="score-list">
 
-@foreach ($scoreAssessment as $item)
-<div class="score-item">
-    <div class="score-item__header">
-        <h2 class="score-item__label">{{$item->name}}</h2>
-        <div class="score-item__value">{{$item->score}}</div>
-    </div>
-    <div class="score-item__progress">
-        <div class="score-item__bar" style="width: {{$item->score}}%"></div>
-    </div>
-</div>
-@endforeach
+                        @foreach ($scoreAssessment as $item)
+                            <div class="score-item">
+                                <div class="score-item__header">
+                                    <h2 class="score-item__label">{{ $item->name }}</h2>
+                                    <div class="score-item__value">{{ $item->score }}</div>
+                                </div>
+                                <div class="score-item__progress">
+                                    <div class="score-item__bar" style="width: {{ $item->score }}%"></div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="sidebar-list-job">
                         <ul>
@@ -256,7 +271,7 @@
                                 </div>
                             </li>
 
-                            @if($candidate->languages->isNotEmpty())
+                            @if ($candidate->languages->isNotEmpty())
                                 <li>
                                     <div class="sidebar-icon-item">
                                         <i class="fi-rr-marker"></i>
@@ -264,7 +279,8 @@
                                     <div class="sidebar-text-info">
                                         <span class="text-description">{{ __('Languages') }}</span>
                                         <div class="d-flex flex-wrap gap-1">
-                                            <strong class="small-heading fw-semibold">{{ $candidate->language_text }}</strong>
+                                            <strong
+                                                class="small-heading fw-semibold">{{ $candidate->language_text }}</strong>
                                         </div>
                                     </div>
                                 </li>
@@ -276,7 +292,7 @@
                                 $tags = $candidate->favoriteTags;
                             @endphp
 
-                            @if($skills->isNotEmpty())
+                            @if ($skills->isNotEmpty())
                                 <li>
                                     <div class="sidebar-icon-item">
                                         <i class="fi-rr-star"></i>
@@ -284,13 +300,14 @@
                                     <div class="sidebar-text-info">
                                         <span class="text-description">{{ __('Skills') }}</span>
                                         <div class="d-flex flex-wrap gap-1">
-                                            <strong class="small-heading fw-semibold">{{ implode(', ', $skills->pluck('name')->all()) }}</strong>
+                                            <strong
+                                                class="small-heading fw-semibold">{{ implode(', ', $skills->pluck('name')->all()) }}</strong>
                                         </div>
                                     </div>
                                 </li>
                             @endif
 
-                            @if($tags->isNotEmpty())
+                            @if ($tags->isNotEmpty())
                                 <li>
                                     <div class="sidebar-icon-item">
                                         <i class="fi-rr-bookmark"></i>
@@ -298,7 +315,8 @@
                                     <div class="sidebar-text-info">
                                         <span class="text-description">{{ __('Tags') }}</span>
                                         <div class="d-flex flex-wrap gap-1">
-                                            <strong class="small-heading fw-semibold">{{ implode(', ', $tags->pluck('name')->all()) }}</strong>
+                                            <strong
+                                                class="small-heading fw-semibold">{{ implode(', ', $tags->pluck('name')->all()) }}</strong>
                                         </div>
                                     </div>
                                 </li>
@@ -306,7 +324,9 @@
                         </ul>
                     </div>
 
-                    @if ((! JobBoardHelper::isCandidateInformationHiddenForGuests() || auth('account')->check()) && ! JobBoardHelper::isOnlyEmployerCanViewCandidateInformation())
+                    @if (
+                        (!JobBoardHelper::isCandidateInformationHiddenForGuests() || auth('account')->check()) &&
+                            !JobBoardHelper::isOnlyEmployerCanViewCandidateInformation())
                         <div class="sidebar-list-job">
                             <ul class="ul-disc">
                                 @if ($uniqueId = $candidate->unique_id)
@@ -318,15 +338,19 @@
                                 @endif
 
                                 @if ($phone = $candidate->phone)
-                                    <li>{{ __('Phone:') }} <a href="tel:{{ $phone }}">{{ $phone }}</a></li>
+                                    <li>{{ __('Phone:') }} <a
+                                            href="tel:{{ $phone }}">{{ $phone }}</a></li>
                                 @endif
 
                                 @if ($email = $candidate->email)
-                                    <li>{{ __('Email:') }} <a href="mailto:{{ $email }}">{{ $email }}</a></li>
+                                    <li>{{ __('Email:') }} <a
+                                            href="mailto:{{ $email }}">{{ $email }}</a></li>
                                 @endif
 
                                 @if ($linkedinUrl = $candidate->getMetaData('linkedin', true))
-                                    <li>{{ __('LinkedIn:') }} <a title="{{ $linkedinUrl }}" href="{{ $linkedinUrl }}" target="_blank">{{ $candidate->name }}</a></li>
+                                    <li>{{ __('LinkedIn:') }} <a title="{{ $linkedinUrl }}"
+                                            href="{{ $linkedinUrl }}" target="_blank">{{ $candidate->name }}</a>
+                                    </li>
                                 @endif
                             </ul>
 
@@ -338,24 +362,22 @@
                                 </div>
                             @endif
                         </div>
-
                     @else
-                        @if(! auth('account')->check())
-                            <a href="{{ route('public.account.login') }}" class="alert-label-for-guest text-muted mt-10">
-                                {{ JobBoardHelper::isOnlyEmployerCanViewCandidateInformation() ? __('Please log in as employer account to view candidate information') :__('Please log in to see more information') }}
+                        @if (!auth('account')->check())
+                            <a href="{{ route('public.account.login') }}"
+                                class="alert-label-for-guest text-muted mt-10">
+                                {{ JobBoardHelper::isOnlyEmployerCanViewCandidateInformation() ? __('Please log in as employer account to view candidate information') : __('Please log in to see more information') }}
                             </a>
-                        @elseif (! auth('account')->user()->isEmployer() && JobBoardHelper::isOnlyEmployerCanViewCandidateInformation())
+                        @elseif (!auth('account')->user()->isEmployer() && JobBoardHelper::isOnlyEmployerCanViewCandidateInformation())
                             <span class="alert-label-for-guest text-muted mt-10">
                                 {{ __('Please log in as employer account to view candidate information') }}
                             </span>
                         @endif
                     @endif
 
-                    @if(
-                        JobBoardHelper::isOnlyEmployerCanViewCandidateInformation()
-                        && auth('account')->check()
-                        && auth('account')->user()->type->getValue() === 'employer'
-                    )
+                    @if (JobBoardHelper::isOnlyEmployerCanViewCandidateInformation() &&
+                            auth('account')->check() &&
+                            auth('account')->user()->type->getValue() === 'employer')
                         <div class="sidebar-list-job">
                             <ul class="ul-disc">
                                 @if ($uniqueId = $candidate->unique_id)
@@ -367,15 +389,19 @@
                                 @endif
 
                                 @if ($phone = $candidate->phone)
-                                    <li>{{ __('Phone:') }} <a href="tel:{{ $phone }}">{{ $phone }}</a></li>
+                                    <li>{{ __('Phone:') }} <a
+                                            href="tel:{{ $phone }}">{{ $phone }}</a></li>
                                 @endif
 
                                 @if ($email = $candidate->email)
-                                    <li>{{ __('Email:') }} <a href="mailto:{{ $email }}">{{ $email }}</a></li>
+                                    <li>{{ __('Email:') }} <a
+                                            href="mailto:{{ $email }}">{{ $email }}</a></li>
                                 @endif
 
                                 @if ($linkedinUrl = $candidate->getMetaData('linkedin', true))
-                                    <li>{{ __('LinkedIn:') }} <a title="{{ $linkedinUrl }}" href="{{ $linkedinUrl }}" target="_blank">{{ $candidate->name }}</a></li>
+                                    <li>{{ __('LinkedIn:') }} <a title="{{ $linkedinUrl }}"
+                                            href="{{ $linkedinUrl }}" target="_blank">{{ $candidate->name }}</a>
+                                    </li>
                                 @endif
                             </ul>
 
@@ -408,4 +434,3 @@
         {!! apply_filters('ads_render', null, 'candidate_after', ['class' => 'my-2 text-center']) !!}
     @endif
 </section>
-

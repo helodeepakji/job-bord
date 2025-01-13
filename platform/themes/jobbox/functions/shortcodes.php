@@ -354,6 +354,14 @@ app()->booted(function (): void {
             return Theme::partial('shortcodes.new-hero-section-admin-config', compact('attributes'));
         });
         
+        add_shortcode('prices', __('Price Component'), __('Price Component'), function (Shortcode $shortcode) {
+            return Theme::partial('shortcodes.price', compact('shortcode'));
+        });
+
+        shortcode()->setAdminConfig('prices', function (array $attributes) {
+            return Theme::partial('shortcodes.price-admin-config', compact('attributes'));
+        });
+        
         // deepak ui bock
 
         shortcode()->setAdminConfig('job-grid', function (array $attributes) {

@@ -31,7 +31,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 use App\Services\XobinService;
+use App\Models\Assessment;
 
+// deepak assessment
 // deepak profile
 class AccountController extends BaseController
 {
@@ -120,7 +122,26 @@ class AccountController extends BaseController
         $account = auth('account')->user();
 
         try {
+            $scoreAssessment = Assessment::where('account_id', $account->id)->get();
             $assessments = $this->xobinService->listAssessments();
+
+            foreach ($scoreAssessment as $assessment) {
+                $assessmentScore = $this->xobinService->getCandidateScore($assessment->candidate_id);
+
+                if ($assessmentScore) {
+                    $assessment->name = $assessmentScore['assessment_name'];
+                    $assessment->score = $assessmentScore['overall_percentage'];
+                    $assessment->save();
+                }
+
+                foreach ($assessments as &$assessmentData) { 
+                    if ($assessmentData['assessment_id'] == $assessment->assessment_id) {
+                        $assessmentData['other'] = $assessmentScore ?? null;
+                        $assessmentData['score'] = $assessment->score ?? null;
+                    }
+                }
+            }
+
         } catch (\Exception $e) {
             // If the request expects JSON (API/AJAX), return error as JSON
             if (request()->expectsJson()) {
@@ -163,8 +184,33 @@ class AccountController extends BaseController
                 $id
             );
 
-            dd($invite); 
-            return response()->json($invite);
+            // return response()->json($invite);
+            if (!empty($invite['testlink'])) {
+                $assessment = new Assessment();
+                $assessment->account_id = $account->id;
+                $assessment->assessment_id = $id;
+                $assessment->candidate_id = $invite['_id'];
+                $assessment->status = 'Invitation Link Created';
+                $assessment->test_link = $invite['testlink'];
+                $assessment->save();
+                return redirect()->away($invite['testlink']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getCandidateScore($candidateId)
+    {
+        try {
+            $score = $this->xobinService->getCandidateScore($candidateId);
+            $assessment = Assessment::where('candidate_id', $candidateId)->first();
+            if ($assessment) {
+                $assessment->status = 'Completed';
+                $assessment->score = $score['overall_percentage'];
+                $assessment->save();
+            }
+            return response()->json($score);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

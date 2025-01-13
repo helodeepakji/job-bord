@@ -1,23 +1,40 @@
 @php
-    Theme::asset()->container('footer')->add('location-js', asset('vendor/core/plugins/location/js/location.js'), ['jquery']);
+    Theme::asset()
+        ->container('footer')
+        ->add('location-js', asset('vendor/core/plugins/location/js/location.js'), ['jquery']);
 @endphp
 
 @extends(Theme::getThemeNamespace('views.job-board.account.partials.layout-settings'))
 {{-- deepak assessment --}}
 @section('content')
+    <style>
+        .myassessment h5 {
+            color: white;
+        }
+
+        .myassessment .justitem {
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .myassessment p {
+            margin: 0;
+        }
+    </style>
     <h3 class="mt-0 mb-15 color-brand-1">{{ __('My Assessment') }}</h3>
     <div class="row">
         @if (!empty($assessments) && count($assessments) > 0)
             @foreach ($assessments as $assessment)
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 myassessment">
                     <div class="card border-primary">
                         <div class="card-header bg-primary text-white">
                             <h5 class="card-title mb-0">{{ $assessment['assessment_name'] }}</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex justitem">
                             <p class="card-text"><strong>Assessment ID:</strong> {{ $assessment['assessment_id'] }}</p>
-                            <a href="{{ route('public.account.assessment.details', ['id' => $assessment['assessment_id']]) }}" class="btn btn-outline-primary">
-                                {{ __('View Details') }}
+                            <a href="{{ route('public.account.assessment.details', ['id' => $assessment['assessment_id']]) }}"
+                                class="btn btn-outline-primary">
+                                {{ __('Start') }}
                             </a>
                         </div>
                     </div>

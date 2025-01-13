@@ -91,7 +91,7 @@
                                 <!-- Filter by Skill -->
                                 <li>
                                     <label for="skill">Filter by Skill:</label>
-                                    <select id="skillFiter" name="skill[]" class="skill" data-filter="skill"
+                                    <select id="skillFiter" name="skill[]" class="keyword" data-filter="skill"
                                         multiple="multiple">
                                         @foreach ($skills as $item)
                                             <option value="{{ $item->id }}"
@@ -105,7 +105,7 @@
                                 <!-- Filter by Job Title -->
                                 <li>
                                     <label for="job_title">Filter by Job Title:</label>
-                                    <input type="text" id="job_title" name="job_title" class="job_title"
+                                    <input type="text" id="job_title" name="job_title" class="keyword"
                                         placeholder="Search by job title"
                                         value="{{ BaseHelper::stringify(request()->query('job_title')) }}"
                                         data-filter="job_title">
@@ -114,7 +114,7 @@
                                 <!-- Filter by Experience -->
                                 <li>
                                     <label for="experience">Filter by Experience (in years):</label>
-                                    <select id="experience" name="experience" class="experience"
+                                    <select id="experience" name="experience" class="keyword"
                                         data-filter="experience">
                                         <option value="">Select Experience</option>
                                         <option value="1" @if (request()->query('experience') == '1') selected @endif>1 Year
@@ -131,7 +131,7 @@
                                 <!-- Filter by Education Level -->
                                 <li>
                                     <label for="education">Filter by Education Level:</label>
-                                    <select id="education" name="education" class="education" data-filter="education">
+                                    <select id="education" name="education" class="keyword" data-filter="education">
                                         <option value="">Select Education Level</option>
                                         @foreach ($degreeLevels as $item)
                                             <option value="{{ $item->id }}"

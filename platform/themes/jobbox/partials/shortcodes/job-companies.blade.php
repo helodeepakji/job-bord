@@ -8,12 +8,16 @@
         {!! apply_filters('ads_render', null, 'company_list_before', ['class' => 'my-2 text-center']) !!}
     @endif
     <style>
+        .dform {
+            gap: 15px;
+        }
+
         @media screen and (max-width: 800px) {
             .dform {
                 flex-direction: column;
-                gap: 15px;
             }
-            .banner-hero.banner-company{
+
+            .banner-hero.banner-company {
                 padding: 40px 0 38px;
             }
         }

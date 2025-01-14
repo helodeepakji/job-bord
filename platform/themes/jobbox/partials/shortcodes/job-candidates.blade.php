@@ -23,6 +23,10 @@
             width: 100%;
         }
 
+        li.select2-selection__choice {
+            max-width: fit-content;
+        }
+
         .box-list-character .select2 {
             margin: 0;
             width: 100% !important;
@@ -41,7 +45,7 @@
             height: 50px;
             padding-left: 20px;
             width: 100%;
-            padding: 0
+            padding: 0;
         }
 
         .select2-search input {
@@ -55,6 +59,7 @@
             flex-wrap: wrap;
             background: white;
             padding: 0;
+            gap: 5px;
         }
 
         .select2-container--default .select2-search--inline .select2-search__field {

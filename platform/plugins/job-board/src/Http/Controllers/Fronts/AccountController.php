@@ -187,13 +187,16 @@ class AccountController extends BaseController
 
             // return response()->json($invite);
             if (!empty($invite['testlink'])) {
-                $assessment = new Assessment();
-                $assessment->account_id = $account->id;
-                $assessment->assessment_id = $id;
-                $assessment->candidate_id = $invite['_id'];
-                $assessment->status = 'Invitation Link Created';
-                $assessment->test_link = $invite['testlink'];
-                $assessment->save();
+                $scoreAssessment = Assessment::where('assessment_id', $id)->where('user_id' , $account->id)->get();
+                if(empty($scoreAssessment)){
+                    $assessment = new Assessment();
+                    $assessment->account_id = $account->id;
+                    $assessment->assessment_id = $id;
+                    $assessment->candidate_id = $invite['_id'];
+                    $assessment->status = 'Invitation Link Created';
+                    $assessment->test_link = $invite['testlink'];
+                    $assessment->save();
+                }
                 return redirect()->away($invite['testlink']);
             }
         } catch (\Exception $e) {

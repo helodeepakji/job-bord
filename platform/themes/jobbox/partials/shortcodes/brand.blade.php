@@ -1,24 +1,18 @@
 <style>
-    /* Custom Styling */
     .company-branding-companent .logo-card {
         background-color: #f8fdfb;
-        /* Light greenish background */
         border: none;
-        /* Remove border for the card */
         border-radius: 8px;
-        /* Rounded corners */
-        padding: 20px;
+        padding: 18px 15px;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100px;
-        /* Ensure uniform height */
+        height: 80px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        /* Subtle shadow */
     }
 
     .company-branding-companent .logo-card img {
-        width: 100%;
+        width: 120px;
         height: auto;
         object-fit: cover;
         overflow: hidden;

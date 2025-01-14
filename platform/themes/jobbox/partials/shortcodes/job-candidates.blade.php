@@ -52,11 +52,15 @@
             width: 100% !important;
         }
 
+        .box-list-character ul {
+            gap: 15px;
+        }
+
+        .box-list-character ul li select {
+            border: 1px solid rgb(224, 230, 247) !important;
+        }
+
         .select2-container--default .select2-selection--multiple .select2-selection__rendered {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            flex-wrap: wrap;
             background: white;
             padding: 0;
             gap: 5px;
@@ -81,7 +85,40 @@
         }
 
         .select2-container--default .select2-selection--multiple {
-            border: 1px solid rgb(224, 230, 247);
+            border: 1px solid rgb(224, 230, 247) !important;
+        }
+
+        @media screen and (max-width: 800px) {
+            .box-list-character ul {
+                display: flex;
+                gap: 15px;
+                padding: 0;
+                flex-direction: column;
+            }
+        }
+
+        .dform {
+            gap: 15px;
+            align-items: flex-start;
+        }
+        .dform button{
+            height: 50px;
+        }
+        .select2-container .select2-selection--multiple .select2-selection__rendered {
+            display: block;
+        }
+        @media screen and (max-width: 800px) {
+            .dform {
+                flex-direction: column;
+            }
+
+            .dform button{
+                width: 100%;
+            }
+
+            .banner-hero.banner-company {
+                padding: 40px 0 38px;
+            }
         }
     </style>
     <form action="{{ route('public.ajax.candidates') }}" class="candidate-filter-form">
@@ -102,7 +139,23 @@
                         </ul>
                     </div> --}}
                         <div class="box-list-character">
-                            <ul>
+                            <div class="box-search d-flex dform">
+                                <select id="skillFiter" name="skill[]" class="keyword" data-filter="skill"
+                                    multiple="multiple">
+                                    @foreach ($skills as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if (is_array(request()->query('skill')) && in_array($item->id, request()->query('skill'))) selected @endif>
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <input type="text" id="job_title" name="job_title" class="keyword"
+                                    placeholder="Search by job title"
+                                    value="{{ BaseHelper::stringify(request()->query('job_title')) }}"
+                                    data-filter="job_title">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                            {{-- <ul>
                                 <!-- Filter by Skill -->
                                 <li>
                                     <label for="skill">Filter by Skill:</label>
@@ -154,7 +207,7 @@
                                         @endforeach
                                     </select>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                 </div>

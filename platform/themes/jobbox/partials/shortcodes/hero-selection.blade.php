@@ -31,9 +31,9 @@
                 <p class="text-muted mt-3">
                     {{ BaseHelper::clean($shortcode->hero_description ?? 'With this tool, you will get much better results at work and develop new skills. Will you take the risk of trying the latest version of our application?') }}
                 </p>
-                <button class="btn btn-primary mt-3">
+                <a href="{{ BaseHelper::clean($shortcode->button_link ?? 'Try Demo') }}" class="btn btn-primary mt-3">
                     {{ BaseHelper::clean($shortcode->hero_button_text ?? 'Try Demo') }}
-                </button>
+                </a>
             </div>
             <!-- Right Column: Dynamic Image -->
             <div class="col-lg-6">

@@ -19,6 +19,11 @@
 </div>
 
 <div class="mb-3">
+    <label class="form-label">{{ __('Button Link') }}</label>
+    <input type="text" name="button_link" value="{{ Arr::get($attributes, 'button_link', __('Button Link')) }}" class="form-control" placeholder="{{ __('Button Link') }}">
+</div>
+
+<div class="mb-3">
     <label class="form-label">{{ __('Item 1 Description') }}</label>
     <textarea name="item1_description" class="form-control" placeholder="{{ __('Item 1 Description') }}">{{ Arr::get($attributes, 'item1_description', __('Etiam pellentesque non nibh non pulvinar. Mauris posuere, tellus sit amet tempus vestibulum.')) }}</textarea>
 </div>
@@ -31,9 +36,4 @@
 <div class="mb-3">
     <label class="form-label">{{ __('Item 3 Description') }}</label>
     <textarea name="item3_description" class="form-control" placeholder="{{ __('Item 3 Description') }}">{{ Arr::get($attributes, 'item3_description', __('Etiam pellentesque non nibh non pulvinar. Mauris posuere, tellus sit amet tempus vestibulum.')) }}</textarea>
-</div>
-
-<div class="mb-3">
-    <label class="form-label">{{ __('Image') }}</label>
-    {!! Form::mediaImage('section_image', Arr::get($attributes, 'section_image')) !!}
 </div>

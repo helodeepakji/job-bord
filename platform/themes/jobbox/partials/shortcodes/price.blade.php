@@ -1,6 +1,6 @@
 <style>
     .pricing-section {
-        padding: 5rem 0;
+        padding-bottom: 3rem;
         text-align: center;
     }
 
@@ -17,6 +17,7 @@
         max-width: 700px;
         margin-left: auto;
         margin-right: auto;
+        line-height: normal;
     }
 
     .pricing-section__description {
@@ -110,6 +111,10 @@
         color: white;
     }
 
+    .maxwidth {
+        max-width: 350px;
+    }
+
     @media (max-width: 991.98px) {
         .pricing-card {
             margin-bottom: 1.5rem;
@@ -128,33 +133,35 @@
             <button class="pricing-toggle__button" data-period="yearly">Yearly</button>
         </div>
 
-        <div class="row">
-            <div class="col-lg-4">
+        <div class="row g-5" style="justify-content: center;">
+            <div class="col-lg-4 maxwidth">
                 <div class="pricing-card">
                     <div class="pricing-card__type">{!! BaseHelper::clean($shortcode->plan_1 ?? 'Starter') !!}</div>
                     <div class="pricing-card__price" data-monthly="{!! BaseHelper::clean($shortcode->plan_1_price ?? '$00') !!}"
                         data-yearly="{!! BaseHelper::clean($shortcode->plan_1_price_year ?? '$00') !!}">{!! BaseHelper::clean($shortcode->plan_1_price ?? '$00') !!}</div>
+                    <div class="pricing-card__features">
                         <div class="pricing-card__features">
-                            <div class="pricing-card__features">
-                                @php
-                                    $features = explode("\n", $shortcode->plan_1_features ?? '');
-                                    $features = array_filter($features);
-                                @endphp
-                                @foreach ($features as $feature)
-                                    <div class="pricing-card__feature">
-                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                        {!! BaseHelper::clean($feature) !!}
-                                    </div>
-                                @endforeach
-                            </div>
+                            @php
+                                $features = explode("/n", $shortcode->plan_1_features ?? '');
+                                $features = array_filter($features);
+                            @endphp
+
+                            @foreach ($features as $feature)
+                                <div class="pricing-card__feature">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    {!! BaseHelper::clean(str_replace("/n", ' ', $feature ?? '')) !!}
+                                </div>
+                            @endforeach
                         </div>
-                    <button class="pricing-card__button">Action</button>
+                    </div>
+                    <a href="{!! BaseHelper::clean($shortcode->plan_1_link ?? 'Pro') !!}">
+                        <button class="pricing-card__button">Action</button></a>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 maxwidth">
                 <div class="pricing-card pricing-card--highlighted">
                     <div class="pricing-card__type">{!! BaseHelper::clean($shortcode->plan_2 ?? 'Pro') !!}</div>
                     <div class="pricing-card__price" data-monthly="{!! BaseHelper::clean($shortcode->plan_2_price ?? '$00') !!}"
@@ -163,7 +170,7 @@
                     <div class="pricing-card__features">
                         <div class="pricing-card__features">
                             @php
-                                $features = explode("\n", $shortcode->plan_2_features ?? '');
+                                $features = explode("/n", $shortcode->plan_2_features ?? '');
                                 $features = array_filter($features);
                             @endphp
                             @foreach ($features as $feature)
@@ -177,10 +184,11 @@
                             @endforeach
                         </div>
                     </div>
-                    <button class="pricing-card__button">Action</button>
+                    <a href="{!! BaseHelper::clean($shortcode->plan_2_link ?? 'Pro') !!}">
+                    <button class="pricing-card__button">Action</button></a>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 maxwidth">
                 <div class="pricing-card">
                     <div class="pricing-card__type">{!! BaseHelper::clean($shortcode->plan_3 ?? 'Premium') !!}</div>
                     <div class="pricing-card__price" data-monthly="{!! BaseHelper::clean($shortcode->plan_3_price ?? '$00') !!}"
@@ -188,7 +196,7 @@
                     <div class="pricing-card__features">
                         <div class="pricing-card__features">
                             @php
-                                $features = explode("\n", $shortcode->plan_3_features ?? '');
+                                $features = explode("/n", $shortcode->plan_3_features ?? '');
                                 $features = array_filter($features);
                             @endphp
                             @foreach ($features as $feature)
@@ -202,7 +210,8 @@
                             @endforeach
                         </div>
                     </div>
-                    <button class="pricing-card__button">Action</button>
+                    <a href="{!! BaseHelper::clean($shortcode->plan_3_link ?? 'Pro') !!}">
+                        <button class="pricing-card__button">Action</button></a>
                 </div>
             </div>
         </div>

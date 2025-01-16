@@ -4,6 +4,11 @@
 </div>
 
 <div class="mb-3">
+    <label class="form-label">{{ __('Item 1 Title') }}</label>
+    <input type="text" name="item1_title" value="{{ Arr::get($attributes, 'item1_title', __('Quick problem-solving contact')) }}" class="form-control" placeholder="{{ __('Item 1 Title') }}">
+</div>
+
+<div class="mb-3">
     <label class="form-label">{{ __('Item 1 Description') }}</label>
     <textarea name="item1_description" class="form-control" placeholder="{{ __('Item 1 Description') }}">{{ Arr::get($attributes, 'item1_description', __('Description for item 1')) }}</textarea>
 </div>

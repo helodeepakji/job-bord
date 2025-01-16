@@ -22,47 +22,44 @@
 
         <!-- Plan 1: Starter -->
         <div class="pricing-plan mb-3 border p-3">
-            <input type="text" name="plan_1"
-                value="{{ Arr::get($attributes, 'plan_1', __('Starter')) }}" class="form-control mb-2"
-                placeholder="{{ __('Plan Type (e.g., Starter)') }}">
-            <input type="text" name="plan_1_price"
-                value="{{ Arr::get($attributes, 'plan_1_price', __('39.99')) }}"
+            <input type="text" name="plan_1" value="{{ Arr::get($attributes, 'plan_1', __('Starter')) }}"
+                class="form-control mb-2" placeholder="{{ __('Plan Type (e.g., Starter)') }}">
+            <input type="text" name="plan_1_price" value="{{ Arr::get($attributes, 'plan_1_price', __('39.99')) }}"
                 class="form-control mb-2" placeholder="{{ __('Monthly Price') }}">
             <input type="text" name="plan_1_price_year"
-                value="{{ Arr::get($attributes, 'plan_1_price_year', __('349.99')) }}"
-                class="form-control mb-2" placeholder="{{ __('Yearly Price') }}">
-            <textarea name="plan_1_features" class="form-control mb-2"
-                placeholder="{{ __('Plan Features (one per line)') }}">{{ Arr::get($attributes, 'plan_1_features', __('Plan Features')) }}</textarea>
+                value="{{ Arr::get($attributes, 'plan_1_price_year', __('349.99')) }}" class="form-control mb-2"
+                placeholder="{{ __('Yearly Price') }}">
+            <textarea name="plan_1_features" class="form-control mb-2" placeholder="{{ __('Plan Features (one per line)') }}">{{ Arr::get($attributes, 'plan_1_features', __('Plan Features')) }}</textarea>
+            <input type="text" name="plan_1_link" value="{{ Arr::get($attributes, 'plan_1_link', __('#')) }}"
+                class="form-control mb-2" placeholder="{{ __('Plan 1 Link') }}">
         </div>
 
         <!-- Plan 2: Pro -->
         <div class="pricing-plan mb-3 border p-3">
-            <input type="text" name="plan_2"
-                value="{{ Arr::get($attributes, 'plan_2', __('Pro')) }}" class="form-control mb-2"
-                placeholder="{{ __('Plan Type (e.g., Pro)') }}">
-            <input type="text" name="plan_2_price"
-                value="{{ Arr::get($attributes, 'plan_2_price', __('49.99')) }}"
+            <input type="text" name="plan_2" value="{{ Arr::get($attributes, 'plan_2', __('Pro')) }}"
+                class="form-control mb-2" placeholder="{{ __('Plan Type (e.g., Pro)') }}">
+            <input type="text" name="plan_2_price" value="{{ Arr::get($attributes, 'plan_2_price', __('49.99')) }}"
                 class="form-control mb-2" placeholder="{{ __('Monthly Price') }}">
             <input type="text" name="plan_2_price_year"
-                value="{{ Arr::get($attributes, 'plan_2_price_year', __('469.99')) }}"
-                class="form-control mb-2" placeholder="{{ __('Yearly Price') }}">
-            <textarea name="plan_2_features" class="form-control mb-2"
-                placeholder="{{ __('Plan Features (one per line)') }}">{{ Arr::get($attributes, 'plan_2_features', __('Plan Features')) }}</textarea>
+                value="{{ Arr::get($attributes, 'plan_2_price_year', __('469.99')) }}" class="form-control mb-2"
+                placeholder="{{ __('Yearly Price') }}">
+            <textarea name="plan_2_features" class="form-control mb-2" placeholder="{{ __('Plan Features (one per line)') }}">{{ Arr::get($attributes, 'plan_2_features', __('Plan Features')) }}</textarea>
+            <input type="text" name="plan_2_link" value="{{ Arr::get($attributes, 'plan_2_link', __('#')) }}"
+                class="form-control mb-2" placeholder="{{ __('Plan 2 Link') }}">
         </div>
 
         <!-- Plan 3: Premium -->
         <div class="pricing-plan mb-3 border p-3">
-            <input type="text" name="plan_3"
-                value="{{ Arr::get($attributes, 'plan_3', __('Premium')) }}" class="form-control mb-2"
-                placeholder="{{ __('Plan Type (e.g., Premium)') }}">
-            <input type="text" name="plan_3_price"
-                value="{{ Arr::get($attributes, 'plan_3_price', __('49.99')) }}"
+            <input type="text" name="plan_3" value="{{ Arr::get($attributes, 'plan_3', __('Premium')) }}"
+                class="form-control mb-2" placeholder="{{ __('Plan Type (e.g., Premium)') }}">
+            <input type="text" name="plan_3_price" value="{{ Arr::get($attributes, 'plan_3_price', __('49.99')) }}"
                 class="form-control mb-2" placeholder="{{ __('Monthly Price') }}">
             <input type="text" name="plan_3_price_year"
-                value="{{ Arr::get($attributes, 'plan_3_price_year', __('469.99')) }}"
-                class="form-control mb-2" placeholder="{{ __('Yearly Price') }}">
-            <textarea name="plan_3_features" class="form-control mb-2"
-                placeholder="{{ __('Plan Features (one per line)') }}">{{ Arr::get($attributes, 'plan_3_features', __('Plan Features')) }}</textarea>
+                value="{{ Arr::get($attributes, 'plan_3_price_year', __('469.99')) }}" class="form-control mb-2"
+                placeholder="{{ __('Yearly Price') }}">
+            <textarea name="plan_3_features" class="form-control mb-2" placeholder="{{ __('Plan Features (one per line)') }}">{{ Arr::get($attributes, 'plan_3_features', __('Plan Features')) }}</textarea>
+            <input type="text" name="plan_3_link" value="{{ Arr::get($attributes, 'plan_3_link', __('#')) }}"
+                class="form-control mb-2" placeholder="{{ __('Plan 3 Link') }}">
         </div>
 
     </div>

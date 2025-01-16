@@ -1,8 +1,6 @@
+{{-- deepak gallery --}}
 <section class="section page-intro pt-100 pb-100 bg-cover">
-    <div
-        class="bg-overlay"
-        style="opacity: 0.7"
-    ></div>
+    <div class="bg-overlay" style="opacity: 0.7"></div>
     <div class="container">
         <h3 class="page-intro__title">{{ __('Galleries') }}</h3>
         {!! Theme::breadcrumb()->render() !!}

@@ -14,6 +14,11 @@
 </div>
 
 <div class="mb-3">
+    <label class="form-label">{{ __('Link') }}</label>
+    <input type="text" name="button_link" value="{{ Arr::get($attributes, 'button_link', __('Button Link')) }}" class="form-control" placeholder="{{ __('Button Link') }}">
+</div>
+
+<div class="mb-3">
     <label class="form-label">{{ __('Feature 1 Title') }}</label>
     <input type="text" name="feature1_title" value="{{ Arr::get($attributes, 'feature1_title', __('Quick review')) }}" class="form-control" placeholder="{{ __('Feature 1 Title') }}">
 </div>

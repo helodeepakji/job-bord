@@ -12,6 +12,7 @@
         max-width: 800px;
         margin: 0 auto 1.5rem;
         line-height: 1.2;
+        color: white;
     }
 
     .hero-section__description {
@@ -87,18 +88,14 @@
         <p class="hero-section__description">
             {{ BaseHelper::clean($shortcode->hero_description ?? 'If you have ever wondered how to develop your brand, this is the place for you. Take a big step forward in growing your business with this great tool.') }}
         </p>
-        <button class="hero-section__button">{{ BaseHelper::clean($shortcode->hero_button_text ?? 'Try Demo') }}</button>
+        <a href="{{ BaseHelper::clean($shortcode->button_link ?? 'Try Demo') }}">
+        <button class="hero-section__button">{{ BaseHelper::clean($shortcode->hero_button_text ?? 'Try Demo') }}</button></a>
 
         <div class="row g-4">
             <!-- Feature 1 -->
             <div class="col-md-4">
                 <div class="feature-card">
-                    <svg class="feature-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
-                        </path>
-                    </svg>
+                    <img class="feature-card__icon" src="{{ RvMedia::getImageUrl($shortcode->image1) }}" />
                     <h3 class="feature-card__title">
                         {{ BaseHelper::clean($shortcode->feature_1_title ?? 'Spectacular team plan') }}</h3>
                     <p class="feature-card__description">
@@ -109,12 +106,7 @@
             <!-- Feature 2 -->
             <div class="col-md-4">
                 <div class="feature-card">
-                    <svg class="feature-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                        </path>
-                    </svg>
+                    <img class="feature-card__icon" src="{{ RvMedia::getImageUrl($shortcode->image2) }}" />
                     <h3 class="feature-card__title">
                         {{ BaseHelper::clean($shortcode->feature_2_title ?? 'Sharable showcase') }}</h3>
                     <p class="feature-card__description">
@@ -125,12 +117,7 @@
             <!-- Feature 3 -->
             <div class="col-md-4">
                 <div class="feature-card">
-                    <svg class="feature-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
-                        </path>
-                    </svg>
+                    <img class="feature-card__icon" src="{{ RvMedia::getImageUrl($shortcode->image3) }}" />
                     <h3 class="feature-card__title">
                         {{ BaseHelper::clean($shortcode->feature_3_title ?? 'Generate messages') }}</h3>
                     <p class="feature-card__description">

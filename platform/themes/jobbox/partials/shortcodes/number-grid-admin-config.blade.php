@@ -14,6 +14,11 @@
 </div>
 
 <div class="mb-3">
+    <label class="form-label">{{ __('Button Link') }}</label>
+    <input type="text" name="button_link" value="{{ Arr::get($attributes, 'button_link', __('Button Link')) }}" class="form-control" placeholder="{{ __('Button Link') }}">
+</div>
+
+<div class="mb-3">
     <label class="form-label">{{ __('Description') }}</label>
     <textarea name="section_description" class="form-control" placeholder="{{ __('Description') }}">{{ Arr::get($attributes, 'section_description', __('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque massa nibh, pulvinar vitae aliquet nec, accumsan aliquet orci.')) }}</textarea>
 </div>

@@ -53,9 +53,13 @@ class PublicController extends BaseController
             $slug->reference_type === Page::class &&
             BaseHelper::isHomepage($slug->reference_id)
         ) {
-            return redirect()->to(BaseHelper::getHomepageUrl());
-        }
 
+            if (!$slug) {
+                return redirect()->to(BaseHelper::getHomepageUrl());
+            }
+            
+            // return redirect()->to(BaseHelper::getHomepageUrl());
+        }
 
         $result = apply_filters(BASE_FILTER_PUBLIC_SINGLE_DATA, $slug);
 

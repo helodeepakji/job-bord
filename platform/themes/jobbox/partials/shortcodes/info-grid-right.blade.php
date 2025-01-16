@@ -1,8 +1,8 @@
 <div class="container py-5">
-    <div class="row align-items-center">        
+    <div class="row align-items-center g-5">        
         <!-- Content Column -->
         <div class="col-md-6 deepak-ui">
-            <h2>{!! BaseHelper::clean($shortcode->title ?? 'Default Title') !!}</h2>
+            <h2 class="mb-4">{!! BaseHelper::clean($shortcode->title ?? 'Default Title') !!}</h2>
             <ul class="list-unstyled">
                 <li class="d-flex align-items-start mb-3">
                     <i class="bi bi-check-circle-fill text-primary me-3" style="font-size: 1.5rem;"></i>

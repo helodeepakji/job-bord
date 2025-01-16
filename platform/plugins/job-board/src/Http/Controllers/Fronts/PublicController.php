@@ -38,6 +38,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Models\Assessment;
 
 class PublicController extends BaseController
 {
@@ -760,6 +761,8 @@ class PublicController extends BaseController
             ['type', '=', AccountTypeEnum::JOB_SEEKER],
         ];
 
+        $scoreAssessment = Assessment::where('account_id', $slug->reference_id)->get();
+
         if (setting('verify_account_email', 0)) {
             $condition[] = ['confirmed_at', '!=', null];
         }
@@ -815,9 +818,11 @@ class PublicController extends BaseController
             $canReview = false;
         }
 
+        // dd($scoreAssessment);
+
         return Theme::scope(
             'job-board.candidate',
-            compact('candidate', 'experiences', 'educations', 'account', 'canReview'),
+            compact('candidate', 'experiences', 'educations', 'account', 'canReview' , 'scoreAssessment'),
             'plugins/job-board::themes.candidate'
         )->render();
     }

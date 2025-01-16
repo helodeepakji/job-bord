@@ -23,6 +23,10 @@
             width: 100%;
         }
 
+        li.select2-selection__choice {
+            max-width: fit-content;
+        }
+
         .box-list-character .select2 {
             margin: 0;
             width: 100% !important;
@@ -41,112 +45,183 @@
             height: 50px;
             padding-left: 20px;
             width: 100%;
-            padding: 0
+            padding: 0;
         }
 
-        .select2-search input{
+        .select2-search input {
             width: 100% !important;
+        }
+
+        .box-list-character ul {
+            gap: 15px;
+        }
+
+        .box-list-character ul li select {
+            border: 1px solid rgb(224, 230, 247) !important;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+            background: white;
+            padding: 0;
+            gap: 5px;
+        }
+
+        .select2-container--default .select2-search--inline .select2-search__field {
+            padding-left: 20px;
         }
 
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             list-style: none;
-            max-width: max-content;
-            height: 30px;
+            min-height: max-content;
             display: flex;
             flex-direction: row-reverse;
             margin: 0;
-        }
-
-        .select2-container--default .select2-selection--multiple .select2-selection__rendered {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-            background: white;
+            width: 100%;
+            background-color: white;
         }
 
         .select2-selection--multiple {
             height: auto;
         }
+
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid rgb(224, 230, 247) !important;
+        }
+
+        @media screen and (max-width: 800px) {
+            .box-list-character ul {
+                display: flex;
+                gap: 15px;
+                padding: 0;
+                flex-direction: column;
+            }
+        }
+
+        .dform {
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .dform button {
+            height: 50px;
+        }
+
+        .select2-container .select2-selection--multiple .select2-selection__rendered {
+            display: block;
+        }
+
+        @media screen and (max-width: 800px) {
+            .dform {
+                flex-direction: column;
+            }
+
+            .dform button {
+                width: 100%;
+            }
+
+            .banner-hero.banner-company {
+                padding: 40px 0 38px;
+            }
+        }
     </style>
-    <form action="{{ route('public.ajax.candidates') }}" class="candidate-filter-form">
-        <section class="section-box-2">
-            <div class="container">
-                <div class="banner-hero banner-company">
-                    <div class="block-banner text-center">
-                        <h3 class="wow animate__animated animate__fadeInUp">{!! BaseHelper::clean($shortcode->title) !!}</h3>
-                        <div class="font-sm color-text-paragraph-2 mt-10 wow animate__animated animate__fadeInUp"
-                            data-wow-delay=".1s">{!! BaseHelper::clean($shortcode->description) !!}</div>
-                        {{-- <div class="box-list-character">
+    <section class="section-box-2">
+        <div class="container">
+            <div class="banner-hero banner-company">
+                <div class="block-banner text-center">
+                    <h3 class="wow animate__animated animate__fadeInUp">{!! BaseHelper::clean($shortcode->title) !!}
+                    </h3>
+                    <div class="font-sm color-text-paragraph-2 mt-10 wow animate__animated animate__fadeInUp"
+                        data-wow-delay=".1s">{!! BaseHelper::clean($shortcode->description) !!}</div>
+                    {{-- <div class="box-list-character">
                         <ul>
                             @foreach (range('a', 'z') as $char)
-                                <li>
-                                    <a href="javascript:void(0)" class="keyword @if (request()->query('keyword') == $char) active @endif" data-keyword="{{ $char }}">{{ $char }}</a>
-                                </li>
+                            <li>
+                                <a href="javascript:void(0)"
+                                    class="keyword @if (request()->query('keyword') == $char) active @endif"
+                                    data-keyword="{{ $char }}">{{ $char }}</a>
+                            </li>
                             @endforeach
                         </ul>
                     </div> --}}
-                        <div class="box-list-character">
-                            <ul>
-                                <!-- Filter by Skill -->
-                                <li>
-                                    <label for="skill">Filter by Skill:</label>
-                                    <select id="skillFiter" name="skill[]" class="skill" data-filter="skill"
-                                        multiple="multiple">
-                                        @foreach ($skills as $item)
-                                            <option value="{{ $item->id }}"
-                                                @if (is_array(request()->query('skill')) && in_array($item->id, request()->query('skill'))) selected @endif>
-                                                {{ $item->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </li>
-
-                                <!-- Filter by Job Title -->
-                                <li>
-                                    <label for="job_title">Filter by Job Title:</label>
-                                    <input type="text" id="job_title" name="job_title" class="job_title"
-                                        placeholder="Search by job title"
-                                        value="{{ BaseHelper::stringify(request()->query('job_title')) }}"
-                                        data-filter="job_title">
-                                </li>
-
-                                <!-- Filter by Experience -->
-                                <li>
-                                    <label for="experience">Filter by Experience (in years):</label>
-                                    <select id="experience" name="experience" class="experience"
-                                        data-filter="experience">
-                                        <option value="">Select Experience</option>
-                                        <option value="1" @if (request()->query('experience') == '1') selected @endif>1 Year
+                    <div class="box-list-character">
+                        <div >
+                            <form action="" class="box-search d-flex dform">
+                                <select id="skillFiter" name="skill[]" class="keyword" data-filter="skill"
+                                    multiple="multiple">
+                                    @foreach ($skills as $item)
+                                        <option value="{{ $item->id }}" @if (is_array(request()->query('skill')) && in_array($item->id, request()->query('skill'))) selected @endif>
+                                            {{ $item->name }}
                                         </option>
-                                        <option value="2" @if (request()->query('experience') == '2') selected @endif>2 Years
-                                        </option>
-                                        <option value="3" @if (request()->query('experience') == '3') selected @endif>3 Years
-                                        </option>
-                                        <option value="5" @if (request()->query('experience') == '5') selected @endif>5+
-                                            Years</option>
-                                    </select>
-                                </li>
-
-                                <!-- Filter by Education Level -->
-                                <li>
-                                    <label for="education">Filter by Education Level:</label>
-                                    <select id="education" name="education" class="education" data-filter="education">
-                                        <option value="">Select Education Level</option>
-                                        @foreach ($degreeLevels as $item)
-                                            <option value="{{ $item->id }}"
-                                                @if (request()->query('education') == $item->id) selected @endif>
-                                                {{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </li>
-                            </ul>
+                                    @endforeach
+                                </select>
+                                <input type="text" id="job_title" name="job_title" class="keyword"
+                                    placeholder="Search by job title"
+                                    value="{{ BaseHelper::stringify(request()->query('job_title')) }}"
+                                    data-filter="job_title">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </form>
                         </div>
+                        {{-- <ul>
+                            <!-- Filter by Skill -->
+                            <li>
+                                <label for="skill">Filter by Skill:</label>
+                                <select id="skillFiter" name="skill[]" class="keyword" data-filter="skill"
+                                    multiple="multiple">
+                                    @foreach ($skills as $item)
+                                    <option value="{{ $item->id }}" @if (is_array(request()->query('skill')) &&
+                                        in_array($item->id, request()->query('skill'))) selected @endif>
+                                        {{ $item->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </li>
+
+                            <!-- Filter by Job Title -->
+                            <li>
+                                <label for="job_title">Filter by Job Title:</label>
+                                <input type="text" id="job_title" name="job_title" class="keyword"
+                                    placeholder="Search by job title"
+                                    value="{{ BaseHelper::stringify(request()->query('job_title')) }}"
+                                    data-filter="job_title">
+                            </li>
+
+                            <!-- Filter by Experience -->
+                            <li>
+                                <label for="experience">Filter by Experience (in years):</label>
+                                <select id="experience" name="experience" class="keyword" data-filter="experience">
+                                    <option value="">Select Experience</option>
+                                    <option value="1" @if (request()->query('experience') == '1') selected @endif>1 Year
+                                    </option>
+                                    <option value="2" @if (request()->query('experience') == '2') selected @endif>2
+                                        Years
+                                    </option>
+                                    <option value="3" @if (request()->query('experience') == '3') selected @endif>3
+                                        Years
+                                    </option>
+                                    <option value="5" @if (request()->query('experience') == '5') selected @endif>5+
+                                        Years</option>
+                                </select>
+                            </li>
+
+                            <!-- Filter by Education Level -->
+                            <li>
+                                <label for="education">Filter by Education Level:</label>
+                                <select id="education" name="education" class="keyword" data-filter="education">
+                                    <option value="">Select Education Level</option>
+                                    @foreach ($degreeLevels as $item)
+                                    <option value="{{ $item->id }}" @if (request()->query('education') == $item->id)
+                                        selected @endif>
+                                        {{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </li>
+                        </ul> --}}
                     </div>
                 </div>
             </div>
-        </section>
-
+        </div>
+    </section>
+    <form action="{{ route('public.ajax.candidates') }}" class="candidate-filter-form">
         <input type="hidden" name="keyword" value="{{ BaseHelper::stringify(request()->query('keyword')) }}">
         <input type="hidden" name="per_page" value="{{ BaseHelper::stringify(request()->query('per_page', 12)) }}">
         <input type="hidden" name="sort_by" value="{{ BaseHelper::stringify(request()->query('sort_by', 'newest')) }}">
@@ -161,10 +236,10 @@
                         <div class="col-xl-6 col-lg-5">
                             <span class="text-small text-showing">
                                 {{ __('Showing :from-:to of :total candidate(s)', [
-                                    'from' => $candidates->firstItem() ?: 0,
-                                    'to' => $candidates->lastItem() ?: 0,
-                                    'total' => $candidates->total(),
-                                ]) }}
+    'from' => $candidates->firstItem() ?: 0,
+    'to' => $candidates->lastItem() ?: 0,
+    'total' => $candidates->total(),
+]) }}
                             </span>
                         </div>
                         <div class="col-xl-6 col-lg-7 text-lg-end mt-sm-15">

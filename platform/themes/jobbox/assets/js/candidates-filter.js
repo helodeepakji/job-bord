@@ -10,6 +10,10 @@
 
     loading.hide()
 
+    $('select, input').on('change', function() {
+        filterCandidates();
+    });
+
     $candidatesList.find('.box-list-character').on('click', '.keyword', function () {
         if (filterTimeout) {
             clearTimeout(filterTimeout)

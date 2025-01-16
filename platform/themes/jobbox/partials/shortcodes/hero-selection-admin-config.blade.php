@@ -9,6 +9,11 @@
 </div>
 
 <div class="mb-3">
+    <label class="form-label">{{ __('Button Link') }}</label>
+    <input type="text" name="button_link" value="{{ Arr::get($attributes, 'button_link', __('Button Link')) }}" class="form-control" placeholder="{{ __('Button Link') }}">
+</div>
+
+<div class="mb-3">
     <label class="form-label">{{ __('Item 1 Description') }}</label>
     <textarea name="hero_description" class="form-control" placeholder="{{ __('Description') }}">{{ Arr::get($attributes, 'hero_description', __('Description')) }}</textarea>
 </div>

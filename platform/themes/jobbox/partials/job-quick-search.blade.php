@@ -2,9 +2,9 @@
     @foreach($jobs as $job)
         <div class="quick-search-result__item">
             <div class="quick-search-result__item__image">
-                <a href="{{ $job->company->url }}">
+                {{-- <a href="{{ $job->company->url }}">
                     <img src="{{ RvMedia::getImageUrl($job->company->logo) }}" alt="{{ $job->company->name }}">
-                </a>
+                </a> --}}
             </div>
             <div class="quick-search-result__item__content text-truncate">
                 <h3 class="quick-search-result__item__content__title text-truncate">

@@ -1,3 +1,5 @@
+{{-- deepak gallery --}}
+
 <section class="section-box">
     <div
         @class(['breadcrumb-cover', 'bg-img-about' => Theme::get('pageCoverImage')])

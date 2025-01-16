@@ -5,7 +5,7 @@
 
 <div class="mb-3">
     <label class="form-label">{{ __('Hero Title') }}</label>
-    <input type="text" name="hero_title" value="{{ Arr::get($attributes, 'hero_title', __('Lorem ipsum dolor sit amet<br>consectetur domor at elis')) }}" class="form-control" placeholder="{{ __('Hero Title') }}">
+    <input type="text" name="hero_title" value="{{ Arr::get($attributes, 'hero_title', __('Lorem ipsum dolor sit amet consectetur domor at elis')) }}" class="form-control" placeholder="{{ __('Hero Title') }}">
 </div>
 
 <div class="mb-3">
@@ -16,6 +16,11 @@
 <div class="mb-3">
     <label class="form-label">{{ __('Text Button Box') }}</label>
     <input type="text" name="hero_button_text" value="{{ Arr::get($attributes, 'hero_button_text', __('Action')) }}" class="form-control" placeholder="{{ __('Text Button Box') }}">
+</div>
+
+<div class="mb-3">
+    <label class="form-label">{{ __('Button Link') }}</label>
+    <input type="text" name="button_link" value="{{ Arr::get($attributes, 'button_link', __('Button Link')) }}" class="form-control" placeholder="{{ __('Button Link') }}">
 </div>
 
 <div class="mb-3">

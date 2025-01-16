@@ -1,6 +1,6 @@
 <div class="mb-3">
-    <label class="form-label">{{ __('Text Button Box') }}</label>
-    <input type="text" name="title" value="{{ Arr::get($attributes, 'text_button_box') }}" class="form-control" placeholder="{{ __('Text button box') }}">
+    <label class="form-label">{{ __('Item 1 Title') }}</label>
+    <input type="text" name="item1_title" value="{{ Arr::get($attributes, 'item1_title', __('Quick problem-solving contact')) }}" class="form-control" placeholder="{{ __('Item 1 Title') }}">
 </div>
 
 <div class="mb-3">

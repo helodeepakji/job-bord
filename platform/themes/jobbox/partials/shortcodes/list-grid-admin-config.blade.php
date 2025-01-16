@@ -9,6 +9,16 @@
 </div>
 
 <div class="mb-3">
+    <label class="form-label">{{ __('Description') }}</label>
+    <input type="text" name="select_description" value="{{ Arr::get($attributes, 'select_description', __('Quick problem-solving contact')) }}" class="form-control" placeholder="{{ __('Description') }}">
+</div>
+
+<div class="mb-3">
+    <label class="form-label">{{ __('Select Label') }}</label>
+    <input type="text" name="select_label" value="{{ Arr::get($attributes, 'select_label', __('Quick problem-solving contact')) }}" class="form-control" placeholder="{{ __('Select Label') }}">
+</div>
+
+<div class="mb-3">
     <label class="form-label">{{ __('Item 1 Description') }}</label>
     <textarea name="item1_description" class="form-control" placeholder="{{ __('Item 1 Description') }}">{{ Arr::get($attributes, 'item1_description', __('Description for item 1')) }}</textarea>
 </div>
@@ -61,34 +71,4 @@
 <div class="mb-3">
     <label class="form-label">{{ __('Item 4 Image') }}</label>
     {!! Form::mediaImage('item4_image', Arr::get($attributes, 'item4_image')) !!}
-</div>
-
-<div class="mb-3">
-    <label class="form-label">{{ __('Item 5 Title') }}</label>
-    <input type="text" name="item5_title" value="{{ Arr::get($attributes, 'item5_title', __('Speedometer')) }}" class="form-control" placeholder="{{ __('Item 5 Title') }}">
-</div>
-
-<div class="mb-3">
-    <label class="form-label">{{ __('Item 5 Description') }}</label>
-    <textarea name="item5_description" class="form-control" placeholder="{{ __('Item 5 Description') }}">{{ Arr::get($attributes, 'item5_description', __('Description for item 5')) }}</textarea>
-</div>
-
-<div class="mb-3">
-    <label class="form-label">{{ __('Item 5 Image') }}</label>
-    {!! Form::mediaImage('item5_image', Arr::get($attributes, 'item5_image')) !!}
-</div>
-
-<div class="mb-3">
-    <label class="form-label">{{ __('Item 6 Title') }}</label>
-    <input type="text" name="item6_title" value="{{ Arr::get($attributes, 'item6_title', __('Toggles')) }}" class="form-control" placeholder="{{ __('Item 6 Title') }}">
-</div>
-
-<div class="mb-3">
-    <label class="form-label">{{ __('Item 6 Description') }}</label>
-    <textarea name="item6_description" class="form-control" placeholder="{{ __('Item 6 Description') }}">{{ Arr::get($attributes, 'item6_description', __('Description for item 6')) }}</textarea>
-</div>
-
-<div class="mb-3">
-    <label class="form-label">{{ __('Item 6 Image') }}</label>
-    {!! Form::mediaImage('item6_image', Arr::get($attributes, 'item6_image')) !!}
 </div>

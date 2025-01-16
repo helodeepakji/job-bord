@@ -4,7 +4,6 @@
     }
     
     .feature-image__wrapper {
-        background-color: #0d6efd;
         aspect-ratio: 1;
         display: flex;
         align-items: center;
@@ -23,6 +22,7 @@
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 3rem;
+        line-height: 50px;
     }
     
     .feature-grid {
@@ -33,7 +33,6 @@
     
     .feature-item {
         display: flex;
-        flex-direction: column;
     }
     
     .feature-item__number {
@@ -46,7 +45,8 @@
         align-items: center;
         justify-content: center;
         font-weight: 500;
-        margin-bottom: 1rem;
+        aspect-ratio: 1;
+        margin: 1rem;
     }
     
     .feature-item__text {
@@ -76,10 +76,10 @@
 
 <section class="feature-section">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center g-5">
             <div class="col-lg-6">
                 <div class="feature-image__wrapper">
-                    <img src="{{ BaseHelper::clean($shortcode->feature_image ?? '') }}" alt="Feature Image">
+                    <img src="{{ RvMedia::getImageUrl($shortcode->feature_image) }}" alt="Feature Image">
                 </div>
             </div>
             <div class="col-lg-6">
